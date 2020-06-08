@@ -110,6 +110,82 @@ def title_word_count(title):
     return word_count(title)
 
 
+def compute_entropy(word_list):
+    """Compute pronoun word rate
+
+        Args:
+            word_list ([str]):
+
+        Returns:
+            (float):
+    """
+    from scipy.stats import entropy
+
+    word_histogram = Counter(word_list)
+    total_word_count = float(len(word_list))
+
+    word_probs = []
+    for _, count in word_histogram.items():
+        mle_pw = count / float(total_word_count)
+        word_probs.append(mle_pw)
+
+    return entropy(word_probs, base=2)
+
+
+def get_readability_features(text):
+    """get FK easiness readability score from a text
+
+    Args:
+        text (str):
+
+    Returns:
+        easiness (float):
+
+    """
+    # remove non words
+    from textatistic import Textatistic
+
+    try:
+        text_score_obj = Textatistic(text)
+        easiness = text_score_obj.flesch_score
+    except ZeroDivisionError:
+        easiness = 100.0
+
+    return easiness
+
+
+def compute_stop_word_presence_rate(word_list, stop_word_set=get_stopwords()):
+    word_count = float(len(word_list))
+
+    # if no words, return 0
+    if word_count == 0:
+        return 0.
+
+    stopwords_count = 0.
+
+    for w in word_list:
+        if w in stop_word_set:
+            stopwords_count += 1
+
+    return stopwords_count / word_count
+
+
+def compute_stop_word_coverage_rate(word_list, stop_word_set=get_stopwords()):
+    word_count = float(len(word_list))
+
+    # if no words, return 0
+    if word_count == 0:
+        return 0.
+
+    stopwords_present = set()
+
+    for w in word_list:
+        if w in stop_word_set:
+            stopwords_present.add(w)
+
+    return len(stopwords_present) / word_count
+
+
 def compute_conjunction_rate(word_list):
     """Compute conjugation word rate
 
@@ -249,79 +325,3 @@ def compute_pronouns_rate(word_list):
             qualified_count += 1
 
     return qualified_count / word_count
-
-
-def compute_stop_word_presence_rate(word_list, stop_word_set=get_stopwords()):
-    word_count = float(len(word_list))
-
-    # if no words, return 0
-    if word_count == 0:
-        return 0.
-
-    stopwords_count = 0.
-
-    for w in word_list:
-        if w in stop_word_set:
-            stopwords_count += 1
-
-    return stopwords_count / word_count
-
-
-def compute_stop_word_coverage_rate(word_list, stop_word_set=get_stopwords()):
-    word_count = float(len(word_list))
-
-    # if no words, return 0
-    if word_count == 0:
-        return 0.
-
-    stopwords_present = set()
-
-    for w in word_list:
-        if w in stop_word_set:
-            stopwords_present.add(w)
-
-    return len(stopwords_present) / word_count
-
-
-def compute_entropy(word_list):
-    """Compute pronoun word rate
-
-        Args:
-            word_list ([str]):
-
-        Returns:
-            (float):
-    """
-    from scipy.stats import entropy
-
-    word_histogram = Counter(word_list)
-    total_word_count = float(len(word_list))
-
-    word_probs = []
-    for _, count in word_histogram.items():
-        mle_pw = count / float(total_word_count)
-        word_probs.append(mle_pw)
-
-    return entropy(word_probs, base=2)
-
-
-def get_readability_features(text):
-    """get FK easiness readability score from a text
-
-    Args:
-        text (str):
-
-    Returns:
-        easiness (float):
-
-    """
-    # remove non words
-    from textatistic import Textatistic
-
-    try:
-        text_score_obj = Textatistic(text)
-        easiness = text_score_obj.flesch_score
-    except ZeroDivisionError:
-        easiness = 100.0
-
-    return easiness
