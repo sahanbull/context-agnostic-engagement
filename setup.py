@@ -16,5 +16,6 @@ setup(
         'nltk>=3.2.5',
         'ujson>=1.35',
         'scikit-learn>=0.19.1',
-        'pyspark>=2.4.5']
+        'pyspark>=2.4.5',
+        'textatistic>=0.0.1']
 )
