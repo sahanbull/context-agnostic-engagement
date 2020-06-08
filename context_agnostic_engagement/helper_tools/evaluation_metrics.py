@@ -2,7 +2,7 @@ from sklearn import metrics as skm
 from scipy.stats import spearmanr
 import numpy as np
 
-from context_agnostic_engagement.utils.io_utils import get_pairwise_version, ID_COL, DOMAIN_COL
+from context_agnostic_engagement.helper_tools.io_utils import get_pairwise_version, ID_COL, DOMAIN_COL
 
 
 def get_rmse(Y_train, Y_test, train_pred, test_pred):
