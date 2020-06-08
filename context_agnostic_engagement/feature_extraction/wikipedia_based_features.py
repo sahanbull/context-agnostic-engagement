@@ -1,7 +1,7 @@
 from collections import defaultdict
 
-from context_agnostic_engagement.feature_extraction.api_utils import wikify
-from context_agnostic_engagement.feature_extraction.text_utils import partition_text
+from context_agnostic_engagement.feature_extraction._api_utils import wikify
+from context_agnostic_engagement.feature_extraction._text_utils import partition_text
 
 # values for Doc Frequency and Words to Ignore, more details about these variables
 # found at: http://www.wikifier.org/info.html
