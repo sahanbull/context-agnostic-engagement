@@ -78,15 +78,30 @@ by prior work analyses done on engagement in video lectures [(3)](https://doi.or
 
 ## 2. `content_agnostic_engagement` Module
 This section contains the code that enables the research community to work with the VLEngagement dataset. The folder
-structure in this section logically seperates the code into three seperate modules.
+structure in this section logically separates the code into three modules.
 ### `feature_extraction`
 This section contains the programming logic of the functions used for feature extraction. The main use of this module
 is when one is interested in populating the features for their own lecture corpus using the exact programming logic used
-to pupulate VLEngagement data. 
+to populate VLEngagement data. Several files with feature extraction related functions are found in this module.
+- `_api_utils.py`: Internal functions relevant to making API calls to the [Wikifier](http://www.wikifier.org/).
+- `_text_utils.py`: Internal functions relevant to utility functions for handling text.
+- `content_based_features`: Functions and logic associated with extracting content-based features.
+- `wikipedia_based_features`: Functions and logic associated with extracting Wikipedia-based features.
+
+### `helper_tools`
+This module includes the helper tools that are useful in working with the dataset. The two main submodules contain 
+helper functions relating to evaluation and input-output operations. 
+- `evaluation_metrics`: contains the helper functions to run Root Mean Sqaure Error (RMSE), Spearman's Rank Order 
+Correlation Coefficient (SROCC) and Pairwise Ranking Accuracy (Pairwise). 
+- io_utils: contains the helper functions that are required for loading and manipulating the dataset. 
 
 ### `models` 
+This module contains the python scripts that have been used to create the current baselines. Currently, `regression` 
+models have been proposed as baseline models for the tasks. The two files `models/regression/train_gbm_regression_full_cv.py` 
+and `models/regression/train_rf_regression_full_cv.py` can be used to reproduce the baseline performance for Gradient 
+Boosting Machines (GBM) and Random Forests (RM) models.
 
-### `utils`
+
 
 ## References
 [1] Sahan Bulathwela, Emine Yilmaz, and John Shawe-Taylor (2019). Towards Automatic, Scalable Quality Assurance in Open 
