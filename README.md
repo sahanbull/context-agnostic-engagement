@@ -93,7 +93,7 @@ This module includes the helper tools that are useful in working with the datase
 helper functions relating to evaluation and input-output operations. 
 - `evaluation_metrics`: contains the helper functions to run Root Mean Sqaure Error (RMSE), Spearman's Rank Order 
 Correlation Coefficient (SROCC) and Pairwise Ranking Accuracy (Pairwise). 
-- io_utils: contains the helper functions that are required for loading and manipulating the dataset. 
+- `io_utils`: contains the helper functions that are required for loading and manipulating the dataset. 
 
 ### `models` 
 This module contains the python scripts that have been used to create the current baselines. Currently, `regression` 
