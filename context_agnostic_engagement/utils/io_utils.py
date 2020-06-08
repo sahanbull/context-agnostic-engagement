@@ -19,6 +19,8 @@ VID_COLS = ['duration', 'type', 'is_chunked', "speaker_speed", 'silent_period_ra
 
 MEAN_ENGAGEMENT_RATE = 'mean_engagement_rate'
 MED_ENGAGEMENT_RATE = 'median_engagement_rate'
+MEAN_STAR_RATING = 'mean_star_rating'
+VIEW_COUNT = "view_count"
 
 LABEL_COLS = [MEAN_ENGAGEMENT_RATE, MED_ENGAGEMENT_RATE]
 
@@ -107,6 +109,40 @@ def load_lecture_dataset(input_filepath, col_version=1):
     columns += LABEL_COLS
 
     return lectures[columns]
+
+
+def get_label_from_dataset(label_param):
+    if label_param == "mean":
+        return MEAN_ENGAGEMENT_RATE
+    elif label_param == "median":
+        return MED_ENGAGEMENT_RATE
+    elif label_param == "rating":
+        return MEAN_STAR_RATING
+    else:
+        return VIEW_COUNT
+
+
+def get_features_from_dataset(col_cat, lectures):
+    if col_cat == 1:
+        columns = COL_VER_1
+        lectures = transform_features(lectures)
+
+    if col_cat == 2:
+        columns = COL_VER_2
+        lectures = transform_features(lectures)
+        # add wiki features
+        lectures, columns = vectorise_wiki_features(lectures, columns)
+
+    if col_cat == 3:
+        columns = COL_VER_3
+        lectures = transform_features(lectures)
+        # add wiki features
+        lectures, columns = vectorise_wiki_features(lectures, columns)
+        # add video features
+        lectures, columns = vectorise_video_features(lectures, columns)
+
+    return columns, lectures
+
 
 def get_fold_from_dataset(lectures, fold):
     fold_train_df = lectures[lectures["fold"] != fold].reset_index(drop=True)

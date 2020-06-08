@@ -10,9 +10,8 @@ from sklearn.externals import joblib
 from sklearn.model_selection import GridSearchCV
 
 from context_agnostic_engagement.utils.evaluation_metrics import get_rmse, get_spearman_r, get_pairwise_accuracy
-from context_agnostic_engagement.utils.io_utils import load_lecture_dataset, COL_VER_1, COL_VER_2, \
-    COL_VER_3, MEAN_ENGAGEMENT_RATE, MED_ENGAGEMENT_RATE, transform_features, vectorise_wiki_features, \
-    vectorise_video_features, get_fold_from_dataset
+from context_agnostic_engagement.utils.io_utils import load_lecture_dataset, get_fold_from_dataset, \
+    get_label_from_dataset, get_features_from_dataset
 
 
 def main(args):
@@ -35,28 +34,9 @@ def main(args):
 
     lectures = load_lecture_dataset(args["training_data_filepath"], col_version=col_cat)
 
-    if args["label"] == "mean":
-        label = MEAN_ENGAGEMENT_RATE
-    else:
-        label = MED_ENGAGEMENT_RATE
+    label = get_label_from_dataset(args["label"])
 
-    if col_cat == 1:
-        columns = COL_VER_1
-        lectures = transform_features(lectures)
-
-    if col_cat == 2:
-        columns = COL_VER_2
-        lectures = transform_features(lectures)
-        # add wiki features
-        lectures, columns = vectorise_wiki_features(lectures, columns)
-
-    if col_cat == 3:
-        columns = COL_VER_3
-        lectures = transform_features(lectures)
-        # add wiki features
-        lectures, columns = vectorise_wiki_features(lectures, columns)
-        # add video features
-        lectures, columns = vectorise_video_features(lectures, columns)
+    columns, lectures = get_features_from_dataset(col_cat, lectures)
 
     cnt = 1
     # make pairwise observations
@@ -159,7 +139,8 @@ if __name__ == '__main__':
                         help="number of parallel jobs to run")
     parser.add_argument('--k-folds', type=int, default=5,
                         help="Number of folds to be used in k-fold cross validation")
-    parser.add_argument('--label', default='median', const='all', nargs='?', choices=['median', 'mean'],
+    parser.add_argument('--label', default='median', const='all', nargs='?',
+                        choices=['median', 'mean', 'rating', 'views'],
                         help="Defines what label should be used for training")
     parser.add_argument('--feature-cat', type=int, default=1,
                         help="defines what label set should be used for training")
