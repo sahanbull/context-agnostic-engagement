@@ -9,9 +9,10 @@ from sklearn.externals import joblib
 
 from sklearn.model_selection import GridSearchCV
 
-from context_agnostic_engagement.utils.io_utils import load_lecture_dataset, ID_COL, DOMAIN_COL, COL_VER_1, COL_VER_2, \
+from context_agnostic_engagement.utils.evaluation_metrics import get_rmse, get_spearman_r, get_pairwise_accuracy
+from context_agnostic_engagement.utils.io_utils import load_lecture_dataset, COL_VER_1, COL_VER_2, \
     COL_VER_3, MEAN_ENGAGEMENT_RATE, MED_ENGAGEMENT_RATE, transform_features, vectorise_wiki_features, \
-    vectorise_video_features, get_pairwise_version, get_fold_from_dataset
+    vectorise_video_features, get_fold_from_dataset
 
 
 def main(args):
@@ -98,41 +99,11 @@ def main(args):
             Y_test = np.exp(Y_test)
             test_pred = np.exp(test_pred)
 
-        from sklearn import metrics as skm
-        from scipy.stats import spearmanr
+        train_rmse, test_rmse = get_rmse(Y_train, Y_test, train_pred, test_pred)
 
-        train_rmse = np.sqrt(skm.mean_squared_error(Y_train, train_pred))
-        test_rmse = np.sqrt(skm.mean_squared_error(Y_test, test_pred))
+        train_spearman, test_spearman = get_spearman_r(Y_train, Y_test, train_pred, test_pred)
 
-        train_spearman = spearmanr(Y_train, train_pred)
-        test_spearman = spearmanr(Y_test, test_pred)
-
-        train_Y_p = spark.createDataFrame(fold_train_df)
-        train_Y_p = get_pairwise_version(train_Y_p, is_gap=True, label_only=True).toPandas()[
-            [ID_COL, "_" + ID_COL, "gap_" + label, DOMAIN_COL]]
-
-        predict_train_Y_p = fold_train_df
-        predict_train_Y_p[label] = train_pred
-        predict_train_Y_p = spark.createDataFrame(predict_train_Y_p)
-        predict_train_Y_p = \
-            get_pairwise_version(predict_train_Y_p, is_gap=True, label_only=True).toPandas()[
-                [ID_COL, "_" + ID_COL, "gap_" + label, DOMAIN_COL]]
-
-        test_Y_p = spark.createDataFrame(fold_test_df)
-        test_Y_p = get_pairwise_version(test_Y_p, is_gap=True, label_only=True).toPandas()[
-            [ID_COL, "_" + ID_COL, "gap_" + label, DOMAIN_COL]]
-
-        predict_test_Y_p = fold_test_df
-        predict_test_Y_p[label] = test_pred
-        predict_test_Y_p = spark.createDataFrame(predict_test_Y_p)
-        predict_test_Y_p = \
-            get_pairwise_version(predict_test_Y_p, is_gap=True, label_only=True).toPandas()[
-                [ID_COL, "_" + ID_COL, "gap_" + label, DOMAIN_COL]]
-
-        train_accuracy = skm.accuracy_score(train_Y_p["gap_" + label] > 0.,
-                                            predict_train_Y_p["gap_" + label] > 0., normalize=True)
-        test_accuracy = skm.accuracy_score(test_Y_p["gap_" + label] > 0.,
-                                           predict_test_Y_p["gap_" + label] > 0., normalize=True)
+        train_acc, test_acc = get_pairwise_accuracy(spark, label, fold_train_df, fold_test_df, train_pred, test_pred)
 
         best_model = {}
         best_model["params"] = "{}_{}_{}_{}".format(grid_model.best_estimator_.n_estimators,
@@ -144,8 +115,8 @@ def main(args):
         best_model["max_depth"] = grid_model.best_estimator_.max_depth
         best_model["min_sample_split"] = grid_model.best_estimator_.n_estimators
         best_model["learning_rate"] = grid_model.best_estimator_.max_depth
-        best_model["train_accuracy"] = train_accuracy
-        best_model["test_accuracy"] = test_accuracy
+        best_model["train_accuracy"] = train_acc
+        best_model["test_accuracy"] = test_acc
         best_model["train_rmse"] = train_rmse
         best_model["test_rmse"] = test_rmse
         best_model["train_spearman_r"] = train_spearman.correlation
