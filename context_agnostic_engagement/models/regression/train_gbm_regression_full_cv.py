@@ -9,8 +9,8 @@ from sklearn.externals import joblib
 
 from sklearn.model_selection import GridSearchCV
 
-from context_agnostic_engagement.utils.evaluation_metrics import get_rmse, get_spearman_r, get_pairwise_accuracy
-from context_agnostic_engagement.utils.io_utils import load_lecture_dataset, get_fold_from_dataset, \
+from context_agnostic_engagement.helper_tools.evaluation_metrics import get_rmse, get_spearman_r, get_pairwise_accuracy
+from context_agnostic_engagement.helper_tools.io_utils import load_lecture_dataset, get_fold_from_dataset, \
     get_label_from_dataset, get_features_from_dataset
 
 
