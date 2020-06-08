@@ -11,7 +11,8 @@ from sklearn.model_selection import GridSearchCV
 
 from context_agnostic_engagement.utils.io_utils import load_lecture_dataset, ID_COL, DOMAIN_COL, COL_VER_1, COL_VER_2, \
     COL_VER_3, MEAN_ENGAGEMENT_RATE, MED_ENGAGEMENT_RATE, transform_features, vectorise_wiki_features, \
-    vectorise_video_features, get_pairwise_version
+    vectorise_video_features, get_pairwise_version, get_fold_from_dataset
+
 
 def main(args):
     spark = (SparkSession.
@@ -31,7 +32,7 @@ def main(args):
     jobs = args["n_jobs"]
     col_cat = args['feature_cat']
 
-    lectures = lectures = load_lecture_dataset(args["training_data_filepath"], col_version=col_cat)
+    lectures = load_lecture_dataset(args["training_data_filepath"], col_version=col_cat)
 
     if args["label"] == "mean":
         label = MEAN_ENGAGEMENT_RATE
@@ -59,8 +60,7 @@ def main(args):
     cnt = 1
     # make pairwise observations
     for i in range(folds):
-        fold_train_df = lectures[lectures["fold"] != cnt].reset_index(drop=True)
-        fold_test_df = lectures[lectures["fold"] == cnt].reset_index(drop=True)
+        fold_train_df, fold_test_df = get_fold_from_dataset(lectures, cnt)
 
         X_train, Y_train = fold_train_df[columns], np.array(fold_train_df[label])
         X_test, Y_test = fold_test_df[columns], np.array(fold_test_df[label])
@@ -105,25 +105,25 @@ def main(args):
         test_spearman = spearmanr(Y_test, test_pred)
 
         train_Y_p = spark.createDataFrame(fold_train_df)
-        train_Y_p = get_pairwise_version(train_Y_p, is_gap=True, is_task_wise=False, label_only=True).toPandas()[
+        train_Y_p = get_pairwise_version(train_Y_p, is_gap=True, label_only=True).toPandas()[
             [ID_COL, "_" + ID_COL, "gap_" + label, DOMAIN_COL]]
 
         predict_train_Y_p = fold_train_df
         predict_train_Y_p[label] = train_pred
         predict_train_Y_p = spark.createDataFrame(predict_train_Y_p)
         predict_train_Y_p = \
-            get_pairwise_version(predict_train_Y_p, is_gap=True, is_task_wise=False, label_only=True).toPandas()[
+            get_pairwise_version(predict_train_Y_p, is_gap=True, label_only=True).toPandas()[
                 [ID_COL, "_" + ID_COL, "gap_" + label, DOMAIN_COL]]
 
         test_Y_p = spark.createDataFrame(fold_test_df)
-        test_Y_p = get_pairwise_version(test_Y_p, is_gap=True, is_task_wise=False, label_only=True).toPandas()[
+        test_Y_p = get_pairwise_version(test_Y_p, is_gap=True, label_only=True).toPandas()[
             [ID_COL, "_" + ID_COL, "gap_" + label, DOMAIN_COL]]
 
         predict_test_Y_p = fold_test_df
         predict_test_Y_p[label] = test_pred
         predict_test_Y_p = spark.createDataFrame(predict_test_Y_p)
         predict_test_Y_p = \
-            get_pairwise_version(predict_test_Y_p, is_gap=True, is_task_wise=False, label_only=True).toPandas()[
+            get_pairwise_version(predict_test_Y_p, is_gap=True, label_only=True).toPandas()[
                 [ID_COL, "_" + ID_COL, "gap_" + label, DOMAIN_COL]]
 
         train_accuracy = skm.accuracy_score(train_Y_p["gap_" + label] > 0.,
@@ -158,12 +158,15 @@ def main(args):
 
 
 if __name__ == '__main__':
-    """this script takes in the database connection as an input and creates the lecture wide engagement related values.
+    """this script takes in the relevant parameters to train a context-agnostic engagement prediction model using a 
+    Random Forests Regressor. The script outputs a "results.csv" with the evaluation metrics and k model 
+    files in joblib pickle format to the output directory.
 
         eg: command to run this script:
 
-        python scratch/generate_dataset/generate_train_test_split.py --input-filepath /cs/research/user/x5gon/input.json
-        --output-filepath /cs/research/user/x5gon/output.json
+        python context_agnostic_engagement/models/regression/train_rf_regression_full_cv.py 
+        --training-data-filepath /path/to/v1/VLEngagement_dataset.csv --output-dir path/to/output/directory --n-jobs 8 
+        --is-log --feature-cat 1 --k-folds 5 --label median
 
     """
     import argparse
@@ -171,18 +174,18 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--training-data-filepath', type=str, required=True,
-                        help="filepath where the training data is")
+                        help="filepath where the training data is. Should be a CSV in the right format")
     parser.add_argument('--output-dir', type=str, required=True,
-                        help="output file dir where the model and result statistics should be saved")
+                        help="output file dir where the models and the results are saved")
     parser.add_argument('--n-jobs', type=int, default=8,
-                        help="number of parallel jobs to run when running cv hyperparameter turning")
+                        help="number of parallel jobs to run")
     parser.add_argument('--k-folds', type=int, default=5,
                         help="Number of folds to be used in k-fold cross validation")
     parser.add_argument('--label', default='median', const='all', nargs='?', choices=['median', 'mean'],
-                        help="Defines what feature set should be used for training")
+                        help="Defines what label should be used for training")
     parser.add_argument('--feature-cat', type=int, default=1,
-                        help="which feature category")
-    parser.add_argument('--is-log', action='store_true')
+                        help="defines what label set should be used for training")
+    parser.add_argument('--is-log', action='store_true', help="Defines if the label should be log transformed.")
 
     args = vars(parser.parse_args())
 

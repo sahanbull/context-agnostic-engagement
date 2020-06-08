@@ -108,6 +108,12 @@ def load_lecture_dataset(input_filepath, col_version=1):
 
     return lectures[columns]
 
+def get_fold_from_dataset(lectures, fold):
+    fold_train_df = lectures[lectures["fold"] != fold].reset_index(drop=True)
+    fold_test_df = lectures[lectures["fold"] == fold].reset_index(drop=True)
+
+    return fold_train_df, fold_test_df
+
 
 def get_pairwise_version(df, is_gap, label_only=False, labels=None):
     """Get the pairwise
