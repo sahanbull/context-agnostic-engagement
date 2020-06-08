@@ -5,6 +5,8 @@ lecture title
 import re
 from collections import Counter
 
+from transcript_reader.utils import shallow_word_segment
+
 STOPWORDS = frozenset(
     [u'all', 'show', 'anyway', 'fifty', 'four', 'go', 'mill', 'find', 'seemed', 'one', 'whose', 're', u'herself',
      'whoever', 'behind', u'should', u'to', u'only', u'under', 'herein', u'do', u'his', 'get', u'very', 'de',
@@ -65,41 +67,8 @@ PRONOUN_WORDS = frozenset(
      "his", "hers", "yours", "ours", "theirs", "its", "our", "that", "their", "these", "this", "those", "you"])
 
 
-def _make_regex_with_escapes(escapers):
-    words_regex = r'{}[^_\W]+{}'
-
-    temp_regexes = []
-    for escaper_pair in escapers:
-        (start, end) = escaper_pair
-        temp_regexes.append(words_regex.format(start, end))
-
-    return r"|".join(temp_regexes)
-
-
 def get_stopwords(additional_stopwords=set()):
     return STOPWORDS | additional_stopwords
-
-
-def shallow_word_segment(phrase, escape_pairs=None):
-    """ Takes in a string phrase and segments it into words based on simple regex
-
-    Args:
-        phrase (str): phrase to be segmented to words
-        escape_pairs ([(str, str)]): list of tuples where each tuple is a pair of substrings that should not be
-                    used as word seperators. The motivation is to escapte special tags such as [HESITATION], ~SILENCE~
-                    IMPORTANT: Row regex has to be used when definng escapte pairs
-                        ("[", "]") will not work as [] are special chars in regex. Instead ("\[", "\]")
-
-    Returns:
-        ([str]): list of words extracted from the phrase
-    """
-    if escape_pairs is None:
-        escape_pairs = []
-
-    escape_pairs.append(("", ""))
-
-    _regex = _make_regex_with_escapes(escape_pairs)
-    return re.findall(_regex, phrase, flags=re.UNICODE)
 
 
 def word_count(s):
