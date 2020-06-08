@@ -123,7 +123,7 @@ if __name__ == '__main__':
         eg: command to run this script:
 
         python context_agnostic_engagement/models/regression/train_gbm_regression_full_cv.py 
-        --training-data-filepath /path/to/v1/VLEngagement_dataset.csv --output-dir path/to/output/directory --n-jobs 8 
+        --training-data-filepath /path/to/v1/VLEngagement_dataset_v1.csv --output-dir path/to/output/directory --n-jobs 8 
         --is-log --feature-cat 1 --k-folds 5 --label median
 
     """
