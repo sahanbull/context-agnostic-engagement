@@ -3,7 +3,8 @@ from setuptools import setup
 setup(
     name='context-agnostic-engagement',
     version='1.0',
-    packages=['context_agnostic_engagement', 'context_agnostic_engagement.utils'],
+    packages=['context_agnostic_engagement', 'context_agnostic_engagement.helper_tools',
+              'context_agnostic_engagement.feature_extraction', 'context_agnostic_engagement.models'],
     url='www.x5gon.org',
     license='',
     author='Sahan Bulathwela',
