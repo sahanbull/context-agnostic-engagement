@@ -54,18 +54,18 @@ In addition, there are two files:
  
 ### Table of Contents
 - [VLEngagement Datasets](#vlengagement-datasets)
-    - Anonymity
-    - Versions
-    - Feature Extraction
-        - General Features
-        - Content-based Features
-        - Wikipedia-based Features
-        - Video-specific Features
-- `content_agnostic_engagement` Module
-    - `feature_extraction`
-    - `helper_tools`
-    - `models` 
-References
+    - [Anonymity](#anonymity)
+    - [Versions](#versions)
+    - [Features](#features)
+        - [General Features](#general-features)
+        - [Content-based Features](#content-based-features)
+        - [Wikipedia-based Features](#wikipedia-based-features)
+        - [Video-specific Features](#video-specific-features)
+- [`content_agnostic_engagement` Module](#content_agnostic_engagement-module)
+    - [`feature_extraction`](#feature_extraction)
+    - [`helper_tools`](#helper_tools)
+    - [`models`](#models)
+- [References](#references)
         
 
 ## VLEngagement Datasets
@@ -90,7 +90,7 @@ All the relevant datasets are available as a Comma Separated Value (CSV) file wi
 (eg. `v1/VLEngagement_dataset_v1.cssv`). The current latest version of the dataset is `v1`. The tools required to load,
 and manipulate the dataset are found in `context_agnostic_engagement.utils.io_utils` module.  
  
-### Feature Extraction
+### Features
 There 4 main types of features extracted from the video lectures. These features can be categorised into six quality 
 verticals [(1)](https://www.k4all.org/wp-content/uploads/2019/08/IJCAI_paper_on_quality.pdf). The overview of the set of XX features provided in the 
 dataset is found in table 1.
