@@ -117,10 +117,10 @@ def main(args):
 
 if __name__ == '__main__':
     """this script takes in the relevant parameters to train a context-agnostic engagement prediction model using a 
-    Gradient Boosting Machines Regressor. The script outputs a "results.csv" with the evaluation metrics and k model 
-    files in joblib pickle format to the output directory.
+    Gradient Boosting Machines Regressor (GBM). The script outputs a "results.csv" with the evaluation metrics and k 
+    model files in joblib pickle format to the output directory.
 
-        eg: command to run this script:
+    eg: command to run this script:
 
         python context_agnostic_engagement/models/regression/train_gbm_regression_full_cv.py 
         --training-data-filepath /path/to/v1/VLEngagement_dataset_v1.csv --output-dir path/to/output/directory --n-jobs 8 
