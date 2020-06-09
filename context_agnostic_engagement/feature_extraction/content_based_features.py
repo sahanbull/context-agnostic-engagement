@@ -2,7 +2,6 @@
 This file contains the functions that can be used to extract content-based features from a lecture transcript string and
 lecture title
 """
-import re
 from collections import Counter
 
 from transcript_reader.utils import shallow_word_segment
@@ -68,25 +67,52 @@ PRONOUN_WORDS = frozenset(
 
 
 def get_stopwords(additional_stopwords=set()):
+    """returns the default stopword set aggregated to a custom stopword set provided.
+
+    Args:
+        additional_stopwords ({str}): set of additional stopwords to be added to the default stopword set.
+
+    Returns:
+        {str}: frozenset of stopwords
+    """
     return STOPWORDS | additional_stopwords
 
 
 def word_count(s):
+    """returns word count of a string
+
+    Args:
+        s (str): string to be word counted.
+
+    Returns:
+        (int): number of words in the string
+
+    """
     return len(shallow_word_segment(s))
 
 
 def title_word_count(title):
+    """returns word count of a title
+
+    Args:
+        title (str): title string to be word counted.
+
+    Returns:
+        (int): number of words in the title
+
+    """
     return word_count(title)
 
 
 def compute_entropy(word_list):
-    """Compute pronoun word rate
+    """Computes document entropy of a transcript calculated
+    according to https://people.cs.umass.edu/~yanlei/publications/wsdm11.pdf
 
         Args:
-            word_list ([str]):
+            word_list ([str]): list of words in the transcript.
 
         Returns:
-            (float):
+            (float): document entropy value
     """
     from scipy.stats import entropy
 
@@ -103,12 +129,13 @@ def compute_entropy(word_list):
 
 def get_readability_features(text):
     """get FK easiness readability score from a text
+    calculated according to https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests
 
     Args:
-        text (str):
+        text (str): text string of the transcript
 
     Returns:
-        easiness (float):
+        easiness (float): FK ease readability score for the text.
 
     """
     # remove non words
@@ -124,6 +151,16 @@ def get_readability_features(text):
 
 
 def compute_stop_word_presence_rate(word_list, stop_word_set=get_stopwords()):
+    """returns the stopword presence rate
+    calculated according to fracStops in https://people.cs.umass.edu/~yanlei/publications/wsdm11.pdf
+
+    Args:
+        word_list ([str]): list of words in the transcript.
+        stop_word_set ({set}): set of stopwords to be used
+
+    Returns:
+        (float): stopword presence rate
+    """
     word_count = float(len(word_list))
 
     # if no words, return 0
@@ -140,29 +177,41 @@ def compute_stop_word_presence_rate(word_list, stop_word_set=get_stopwords()):
 
 
 def compute_stop_word_coverage_rate(word_list, stop_word_set=get_stopwords()):
+    """returns the stopword coverage rate
+    calculated according to stopCover in https://people.cs.umass.edu/~yanlei/publications/wsdm11.pdf
+
+    Args:
+        word_list ([str]): list of words in the transcript.
+        stop_word_set ({set}): set of stopwords to be used
+
+    Returns:
+        (float): stopword coverage rate
+    """
     word_count = float(len(word_list))
 
     # if no words, return 0
     if word_count == 0:
         return 0.
 
+    stopwords_cardinality = float(len(stop_word_set))
     stopwords_present = set()
 
     for w in word_list:
         if w in stop_word_set:
             stopwords_present.add(w)
 
-    return len(stopwords_present) / word_count
+    return len(stopwords_present) / stopwords_cardinality
 
 
 def compute_conjunction_rate(word_list):
     """Compute conjugation word rate
+    calculated according to https://dl.acm.org/doi/pdf/10.1145/2063504.2063507
 
     Args:
-        word_list ([str]):
+        word_list ([str]): list of words in the transcript.
 
     Returns:
-        (float):
+        (float): conjugation word rate
     """
     word_count = float(len(word_list))
 
@@ -179,13 +228,14 @@ def compute_conjunction_rate(word_list):
 
 
 def compute_normalization_rate(word_list):
-    """Compute normalization word rate
+    """Compute normalization suffix rate
+    calculated according to https://dl.acm.org/doi/pdf/10.1145/2063504.2063507
 
         Args:
-            word_list ([str]):
+            word_list ([str]): list of words in the transcript.
 
         Returns:
-            (float):
+            (float): normalization suffix rate
         """
     word_count = float(len(word_list))
 
@@ -206,12 +256,13 @@ def compute_normalization_rate(word_list):
 
 def compute_preposition_rate(word_list):
     """Compute preposition word rate
+    calculated according to https://dl.acm.org/doi/pdf/10.1145/2063504.2063507
 
         Args:
-            word_list ([str]):
+            word_list ([str]): list of words in the transcript.
 
         Returns:
-            (float):
+            (float): preposition word rate
         """
     word_count = float(len(word_list))
 
@@ -228,13 +279,14 @@ def compute_preposition_rate(word_list):
 
 
 def compute_tobe_verb_rate(word_list):
-    """Compute to be verb word rate
+    """Compute to-be verb word rate
+    calculated according to https://dl.acm.org/doi/pdf/10.1145/2063504.2063507
 
         Args:
-            word_list ([str]):
+            word_list ([str]): list of words in the transcript.
 
         Returns:
-            (float):
+            (float): to-be verb word
         """
     word_count = float(len(word_list))
 
@@ -252,12 +304,13 @@ def compute_tobe_verb_rate(word_list):
 
 def compute_auxiliary_verb_rate(word_list):
     """Compute auxiliary verb word rate
+    calculated according to https://dl.acm.org/doi/pdf/10.1145/2063504.2063507
 
         Args:
-            word_list ([str]):
+            word_list ([str]): list of words in the transcript.
 
         Returns:
-            (float):
+            (float): auxiliary verb word rate
         """
     word_count = float(len(word_list))
 
@@ -275,12 +328,13 @@ def compute_auxiliary_verb_rate(word_list):
 
 def compute_pronouns_rate(word_list):
     """Compute pronoun word rate
+    calculated according to https://dl.acm.org/doi/pdf/10.1145/2063504.2063507
 
         Args:
-            word_list ([str]):
+            word_list ([str]): list of words in the transcript.
 
         Returns:
-            (float):
+            (float): pronoun word rate
         """
     word_count = float(len(word_list))
 
