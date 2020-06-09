@@ -33,6 +33,17 @@ COL_VER_3 = CONT_COLS + WIKI_COLS + VID_COLS
 
 
 def vectorise_video_features(lectures, columns):
+    """converts the video specific categorical variables to one-hot encoding
+
+    Args:
+        lectures (pd.DataFrame): pandas DataFrame that has lectures dataset
+        columns ([str]): set of feature columns
+
+    Returns:
+        lectures (pd.DataFrame): pandas DataFrame with updated columns that are one hot encoded
+        columns ([str]): updated set of feature columns
+
+    """
     dummies = pd.get_dummies(lectures['type']).rename(columns=lambda x: 'type_' + str(x))
     for col in dummies.columns:
         lectures[col] = dummies[col]
@@ -48,6 +59,17 @@ def _wikititle_from_url(url):
 
 
 def vectorise_wiki_features(lectures, columns):
+    """converts the wikipedia specific categorical variables (topic 1 page rank and topic 1 cosine) to one-hot encoding
+
+    Args:
+        lectures (pd.DataFrame): pandas DataFrame that has lectures dataset
+        columns ([str]): set of feature columns
+
+    Returns:
+        lectures (pd.DataFrame): pandas DataFrame with updated columns that are one hot encoded
+        columns ([str]): updated set of feature columns
+
+    """
     # get pageRank URL
     col_name = "topic_1_pageRank_url"
     lectures[col_name] = lectures[col_name].apply(_wikititle_from_url)
@@ -82,6 +104,14 @@ def _numerise_categorical(lectures):
 
 
 def transform_features(lectures):
+    """converts the string represented metadata related features to numeric features.
+    Args:
+        lectures (pd.DataFrame): pandas DataFrame that has lectures dataset
+
+    Returns:
+        lectures (pd.DataFrame): pandas DataFrame with updated columns that are one hot encoded
+
+    """
     lectures = _numerise_categorical(lectures)
 
     return lectures
@@ -91,11 +121,11 @@ def load_lecture_dataset(input_filepath, col_version=1):
     """ takes in a distributed path to lecture data and pulls the data
 
     Args:
-        spark (SparkSession): Spark session object
-        input_filepath (str): input filepath
+        input_filepath (str): input filepath where the dataset CSV file is.
+        col_version (int): column version that defines the set of features being considered (could be 1, 2 or 3)
 
     Returns:
-        lectures (DataFrame): dataframe containing all the relevant fields from lectures data
+        lectures (pd.DataFrame): pandas DataFrame containing all the relevant fields from lectures data
     """
     if col_version == 1:
         columns = GEN_FEATURES + COL_VER_1
@@ -112,6 +142,15 @@ def load_lecture_dataset(input_filepath, col_version=1):
 
 
 def get_label_from_dataset(label_param):
+    """gets actual label column name based on parameter
+
+    Args:
+        label_param (str): label parameter defined in the traning scripts.
+
+    Returns:
+        (str): column name of the relevant label as per the dataset.
+
+    """
     if label_param == "mean":
         return MEAN_ENGAGEMENT_RATE
     elif label_param == "median":
@@ -123,6 +162,17 @@ def get_label_from_dataset(label_param):
 
 
 def get_features_from_dataset(col_cat, lectures):
+    """returns the correct set of feature column names and the relevant columns from the dataset.
+
+    Args:
+        col_cat (int): column category parameter that defines the final feature set.
+        lectures (pd.DataFrame): pandas DataFrame with the full dataset including all features
+
+    Returns:
+        lectures (pd.DataFrame): pandas DataFrame with the full dataset including relevant features
+        columns ([str]): list of column names relevant to the column category
+
+    """
     if col_cat == 1:
         columns = COL_VER_1
         lectures = transform_features(lectures)
@@ -151,23 +201,23 @@ def get_fold_from_dataset(lectures, fold):
     return fold_train_df, fold_test_df
 
 
-def get_pairwise_version(df, is_gap, label_only=False, labels=None):
-    """Get the pairwise
+def get_pairwise_version(df, is_gap, label_only=False):
+    """Get the pairwise representation of the lecture dataset
 
     Args:
-        df:
-        is_gap:
+        df (spark.DataFrame): spark DataFrame that need to transformed to pairwise format
+        is_gap (bool): is gap between the features are calculated
+        label_only (bool): are only the labels being considered
 
     Returns:
+        cross_df (spark.DataFrame): park DataFrame that is transformed to pairwise format
 
     """
+    from pyspark.sql import functions as func
+
     if label_only:
         tmp_columns = [ID_COL, DOMAIN_COL] + LABEL_COLS
         df = df.select(tmp_columns)
-
-    from pyspark.sql import functions as func
-    if labels is None:
-        labels = []
 
     _df = df
     cols = set(_df.columns)
@@ -181,15 +231,9 @@ def get_pairwise_version(df, is_gap, label_only=False, labels=None):
                 where(func.col(ID_COL) != func.col("_" + ID_COL)))
 
     if is_gap:
-        # gap_cols = cols - set(LABEL_UNCERTAINTY_COLS + [LECT_ID_COL, CAT_COL])
         gap_cols = cols
         for col in gap_cols:
             cross_df = cross_df.withColumn("gap_" + col, func.col(col) - func.col("_" + col))
-
-    # cross_df = cross_df.drop("_" + CAT_COL)
-
-    if labels:
-        return cross_df.select(labels)
 
     if label_only:
         cross_df = cross_df.select(
