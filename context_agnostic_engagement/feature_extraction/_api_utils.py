@@ -45,6 +45,18 @@ def _get_wikifier_response(text, api_key, df_ignore, words_ignore):
 
 
 def wikify(text, key, df_ignore, words_ignore):
+    """This function takes in a text representation of a lecture transcript and associates relevant Wikipedia topics to
+    it using www.wikifier.org entity linking technology.
+
+    Args:
+        text (str): text that needs to be Wikified (usually lecture transcript string)
+        key (str): API key for Wikifier obtained from http://www.wikifier.org/register.html
+        df_ignore (int): Most common words to ignore based on Document frequency
+        words_ignore (int): Most common words to ignore based on Term frequency
+
+    Returns:
+        [{key:val}]: a dict with status of the request and the list of Wiki topics linked to the text
+    """
     try:
         resp = _get_wikifier_response(text, key, df_ignore, words_ignore)
         resp[STATUS_FIELD] = 'success'

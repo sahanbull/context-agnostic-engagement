@@ -56,6 +56,15 @@ def _segment_sentences(text):
 
 
 def partition_text(text, max_size):
+    """takes a text string and creates a list of substrings that are shorter than a given length
+
+    Args:
+        text (str): text to be partitioned (usually a lecture transcript)
+        max_size (int): maximum number of characters one partition should contain
+
+    Returns:
+        chunks([str]): list of sub strings where each substring is shorter than the given length
+    """
     # get sentences
     sentences = _segment_sentences(text)
 
