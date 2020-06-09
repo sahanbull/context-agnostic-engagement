@@ -61,6 +61,10 @@ In addition, there are two files:
         - [Content-based Features](#content-based-features)
         - [Wikipedia-based Features](#wikipedia-based-features)
         - [Video-specific Features](#video-specific-features)
+    - Labels
+        - Explicit Rating
+        - Popularity
+        - Watch Time/Engagement
 - [`content_agnostic_engagement` Module](#content_agnostic_engagement-module)
     - [`feature_extraction`](#feature_extraction)
     - [`helper_tools`](#helper_tools)
@@ -92,10 +96,7 @@ and manipulate the dataset are found in `context_agnostic_engagement.utils.io_ut
  
 ### Features
 There 4 main types of features extracted from the video lectures. These features can be categorised into six quality 
-verticals [(1)](https://www.k4all.org/wp-content/uploads/2019/08/IJCAI_paper_on_quality.pdf). The overview of the set of XX features provided in the 
-dataset is found in table 1.
-
-Table here !!!!
+verticals [(1)](https://www.k4all.org/wp-content/uploads/2019/08/IJCAI_paper_on_quality.pdf).
 
 #### General Features
 Features that extracted from Lecture metadata that are associated with the language and subject of the materials.
@@ -126,6 +127,30 @@ Similarly, the [Cosine Similarity](https://www.sciencedirect.com/topics/computer
 #### Video-specific Features
 Video-specific features are extracted and included in the dataset. Most of the features in this category are motivated
 by prior work analyses done on engagement in video lectures [(5)](https://doi.org/10.1145/2556325.2566239). 
+
+### Labels
+There are several target labels available in the VLEngagement dataset. These target labels are created by aggregating 
+available explicit and implicit feedback measures in the repository. Mainly, the labels can be constructed as three 
+different types of quantification's of learner subjective assessment of a video lecture:
+
+#### Explicit Rating
+In terms of rating labels, *Mean Star Rating* is provided for the video lecture using a star rating scale from 1 to 5 
+stars. As expected, explicit ratings are scarce and thus only populated in a subset of resources (1250 lectures). 
+Lecture records are labelled with `-1` where star rating labels are missing. The data source does not provide access 
+to ratings from individual users. Instead, only the aggregated average rating is available.
+
+#### Popularity
+
+A popularity-based target label is created by extracting the *View Count* of the lectures. The total
+number of views for each video lecture as of February 17, 2018 is extracted from the metadata and provided with 
+the dataset.
+
+#### Watch Time/Engagement
+
+The majority of learner engagement labels in the VLEngagement dataset are based on watch time. We aggregate the user 
+view logs and use the `Normalised Engagement Time (NET)` to compute the *Median of Normalised Engagement (MNET)*, as it 
+has been proposed as the gold standard for engagement with educational materials in previous work 
+[(5)](https://doi.org/10.1145/2556325.2566239). We also calculate the *Average of Normalised Engagement (ANET)*. 
 
 ## `content_agnostic_engagement` Module
 This section contains the code that enables the research community to work with the VLEngagement dataset. The folder
