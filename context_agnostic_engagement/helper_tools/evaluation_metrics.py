@@ -49,7 +49,7 @@ def get_pairwise_accuracy(spark, label, fold_train_df, fold_test_df, train_pred,
     """calculates Pairwise Accuracy (Pairwise) for train and test data
 
     Args:
-        spark (pyspar.SparkSession): spark session from Apache Spark
+        spark (SparkSession): Apache Spark session object
         label (str): label (median, mean etc.)
         fold_train_df (pd.DataFrame): training fold pandas DataFrame
         fold_test_df (pd.DataFrame): testing fold pandas DataFrame
