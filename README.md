@@ -61,10 +61,10 @@ In addition, there are two files:
         - [Content-based Features](#content-based-features)
         - [Wikipedia-based Features](#wikipedia-based-features)
         - [Video-specific Features](#video-specific-features)
-    - Labels
-        - Explicit Rating
-        - Popularity
-        - Watch Time/Engagement
+    - [Labels](#labels)
+        - [Explicit Rating](#explicit-rating)
+        - [Popularity](#popularity)
+        - [Watch Time/Engagement](#watch-timeengagement)
 - [`content_agnostic_engagement` Module](#content_agnostic_engagement-module)
     - [`feature_extraction`](#feature_extraction)
     - [`helper_tools`](#helper_tools)
