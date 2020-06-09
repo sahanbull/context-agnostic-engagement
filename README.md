@@ -14,7 +14,7 @@ In addtional, there are two files:
 - `README.md`: The main source of information for understanding and working with the VLEngagement datasets.
 - `setup.py`: Python setup file that will install the support tools to your local python environment. 
 
-## Impact
+## Impact and Use cases
 -to be added
 
 ## 1. VLEngagement Datasets
@@ -105,7 +105,7 @@ Boosting Machines (GBM) and Random Forests (RM) models.
 
 ## References
 [1] Sahan Bulathwela, Emine Yilmaz, and John Shawe-Taylor (2019). Towards Automatic, Scalable Quality Assurance in Open 
-Education.", In workshop on AI in United Nations SDGs at International Joint Conference in Artificial Intelligence,
+Education.", In workshop on Artificial Intelligence for United Nations SDGs at International Joint Conference in Artificial Intelligence,
  https://www.k4all.org/wp-content/uploads/2019/08/IJCAI_paper_on_quality.pdf.
 
 [2] David Milne, Ian H. Witten (2008) An effective, low-cost measure of semantic relatedness obtained from Wikipedia 
