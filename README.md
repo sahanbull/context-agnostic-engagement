@@ -102,65 +102,184 @@ included in the dataset are summarised in Table 1.
 Table 1: Features extracted and available in the VLEngagement dataset with their variable type (Continuous vs. 
 Categorical) and their quality vertical.
 
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| Variable Type | Name                           | Quality Vertical    | Description                                                                            |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-|                                                                   Metadata-based   Features                                                                   |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| cat.          | Language                       | -                   | Language of instuction of the video lecture                                            |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| cat.          | Domain                         | -                   | Subject area (STEM or Miscellaneous)                                                   |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-|                                                                    Content-based   Features                                                                   |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| con.          | Word Count                     | Topic Coverage      | Word Count of Transcript                                                               |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| con.          | Title Word Count               | Topic Coverag       | Word Count of Title                                                                    |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| con.          | Document Entropy               | Topic Coverage      | Document Entropy of Transcript                                                         |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| con.          | Easiness (FK Easiness)         | Understandability   | FK Easiness based on FK Easiness                                                       |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| con.          | Stop-word Presence Rate        | Understandability   | Stopword Presence Rate of Transcript text                                              |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| con.          | Stop-word Coverage Rate        | Understandability   | Stopword Coverage Rate of Transcript text                                              |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| con.          | Preposition Rate               | Presentation        | Preposition Rate of Transcript text                                                    |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| con.          | Auxiliary Rate                 | Presentation        | Auxiliary Rate of Transcript text                                                      |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| con.          | To Be Rate                     | Presentation        | To-Be Verb Rate of Transcript text                                                     |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| con.          | Conjunction Rate               | Presentation        | Conjunction Rate of Transcript text                                                    |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| con.          | Normalisation Rate             | Presentation        | Normalisation Rate of Transcript text                                                  |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| con.          | Pronoun Rate                   | Presentation        | Pronoun Rate of Transcript text                                                        |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| con.          | Published Date                 | Freshness           | Duration between 01/01/1970 and the lecture published date (in days)                   |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-|                                                                   Wikipedia-based   Features                                                                  |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| cat.          | Top-5 Authoritative Topic URLs | Authority           | 5 Most Authoritative Topic URLs based on PageRank Score. 5 features in   this group    |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| con.          | Top-5 PageRank Scores          | Authority           | PageRank Scores of the top-5 most authoritative topics                                 |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| cat.          | Top-5 Covered Topic URLs       | Topic Coverage      | 5 Most Covered Topic URLs based on Cosine Similarity Score. 5 features in   this group |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| con.          | Top-5 Cosine Similarities      | Topic Coverage      | Cosine Similarity Scores of the top-5 most covered topics                              |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-|                                                                      Video-based Features                                                                     |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| con.          | Lecture Duration               | Topic Coverage      | Duration of the video (in seconds)                                                     |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| cat.          | Is Chunked                     | Presentation        | If the lecture consists of multiple videos                                             |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| cat.          | Lecture Type                   | Presentation        | Type of lecture (lecture, tutorial, invited talk etc.)                                 |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| con.          | Speaker speed                  | Presentation        | Speaker speed (words per minute)                                                       |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
-| con.          | Silence Period Rate (SPR)      | Presentation        | Fraction of silence in the lecture video                                               |
-+---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-8bgf{border-color:inherit;font-style:italic;text-align:center;vertical-align:top}
+.tg .tg-fymr{border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-fymr">Variable Type</th>
+    <th class="tg-fymr">Name</th>
+    <th class="tg-fymr">Quality Vertical </th>
+    <th class="tg-fymr">Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-8bgf" colspan="4">Metadata-based&nbsp;&nbsp;&nbsp;Features</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">cat.</td>
+    <td class="tg-0pky">Language</td>
+    <td class="tg-0pky">-</td>
+    <td class="tg-0pky">Language of instuction of the video lecture</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">cat.</td>
+    <td class="tg-0pky">Domain</td>
+    <td class="tg-0pky">-</td>
+    <td class="tg-0pky">Subject area (STEM or Miscellaneous)</td>
+  </tr>
+  <tr>
+    <td class="tg-8bgf" colspan="4">Content-based&nbsp;&nbsp;&nbsp;Features</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">con.</td>
+    <td class="tg-0pky">Word Count</td>
+    <td class="tg-0pky">Topic Coverage </td>
+    <td class="tg-0pky">Word Count of Transcript</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">con.</td>
+    <td class="tg-0pky">Title Word Count</td>
+    <td class="tg-0pky">Topic Coverag </td>
+    <td class="tg-0pky">Word Count of Title</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">con.</td>
+    <td class="tg-0pky">Document Entropy</td>
+    <td class="tg-0pky">Topic Coverage </td>
+    <td class="tg-0pky">Document Entropy of Transcript</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">con.</td>
+    <td class="tg-0pky">Easiness (FK Easiness)</td>
+    <td class="tg-0pky">Understandability  </td>
+    <td class="tg-0pky">FK Easiness based on FK Easiness </td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">con.</td>
+    <td class="tg-0pky">Stop-word Presence Rate</td>
+    <td class="tg-0pky">Understandability</td>
+    <td class="tg-0pky">Stopword Presence Rate of Transcript text</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">con.</td>
+    <td class="tg-0pky">Stop-word Coverage Rate</td>
+    <td class="tg-0pky">Understandability </td>
+    <td class="tg-0pky">Stopword Coverage Rate of Transcript text</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">con.</td>
+    <td class="tg-0pky">Preposition Rate</td>
+    <td class="tg-0pky">Presentation </td>
+    <td class="tg-0pky">Preposition Rate of Transcript text</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">con.</td>
+    <td class="tg-0pky">Auxiliary Rate</td>
+    <td class="tg-0pky">Presentation </td>
+    <td class="tg-0pky">Auxiliary Rate of Transcript text</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">con.</td>
+    <td class="tg-0pky">To Be Rate</td>
+    <td class="tg-0pky">Presentation </td>
+    <td class="tg-0pky">To-Be Verb Rate of Transcript text</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">con.</td>
+    <td class="tg-0pky">Conjunction Rate</td>
+    <td class="tg-0pky">Presentation </td>
+    <td class="tg-0pky">Conjunction Rate of Transcript text</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">con.</td>
+    <td class="tg-0pky">Normalisation Rate</td>
+    <td class="tg-0pky">Presentation </td>
+    <td class="tg-0pky">Normalisation Rate of Transcript text</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">con.</td>
+    <td class="tg-0pky">Pronoun Rate</td>
+    <td class="tg-0pky">Presentation </td>
+    <td class="tg-0pky">Pronoun Rate of Transcript text</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">con.</td>
+    <td class="tg-0pky">Published Date</td>
+    <td class="tg-0pky">Freshness </td>
+    <td class="tg-0pky">Duration between 01/01/1970 and the lecture published date (in days)</td>
+  </tr>
+  <tr>
+    <td class="tg-8bgf" colspan="4">Wikipedia-based&nbsp;&nbsp;&nbsp;Features</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">cat.</td>
+    <td class="tg-0pky">Top-5 Authoritative Topic URLs</td>
+    <td class="tg-0pky">Authority </td>
+    <td class="tg-0pky">5 Most Authoritative Topic URLs based on PageRank Score. 5 features in&nbsp;&nbsp;&nbsp;this group</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">con.</td>
+    <td class="tg-0pky">Top-5 PageRank Scores </td>
+    <td class="tg-0pky">Authority </td>
+    <td class="tg-0pky">PageRank Scores of the top-5 most authoritative topics</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">cat.</td>
+    <td class="tg-0pky">Top-5 Covered Topic URLs</td>
+    <td class="tg-0pky">Topic Coverage </td>
+    <td class="tg-0pky">5 Most Covered Topic URLs based on Cosine Similarity Score. 5 features in&nbsp;&nbsp;&nbsp;this group</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">con.</td>
+    <td class="tg-0pky">Top-5 Cosine Similarities</td>
+    <td class="tg-0pky">Topic Coverage   </td>
+    <td class="tg-0pky">Cosine Similarity Scores of the top-5 most covered topics</td>
+  </tr>
+  <tr>
+    <td class="tg-8bgf" colspan="4">Video-based Features</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">con.</td>
+    <td class="tg-0pky">Lecture Duration</td>
+    <td class="tg-0pky">Topic Coverage </td>
+    <td class="tg-0pky">Duration of the video (in seconds)</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">cat.</td>
+    <td class="tg-0pky">Is Chunked</td>
+    <td class="tg-0pky">Presentation </td>
+    <td class="tg-0pky">If the lecture consists of multiple videos</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">cat.</td>
+    <td class="tg-0pky">Lecture Type</td>
+    <td class="tg-0pky">Presentation </td>
+    <td class="tg-0pky">Type of lecture (lecture, tutorial, invited talk etc.)</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">con.</td>
+    <td class="tg-0pky">Speaker speed</td>
+    <td class="tg-0pky">Presentation </td>
+    <td class="tg-0pky">Speaker speed (words per minute)</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">con.</td>
+    <td class="tg-0pky">Silence Period Rate (SPR)</td>
+    <td class="tg-0pky">Presentation</td>
+    <td class="tg-0pky">Fraction of silence in the lecture video</td>
+  </tr>
+</tbody>
+</table>
 
 #### General Features
 Features that extracted from Lecture metadata that are associated with the language and subject of the materials.
