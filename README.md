@@ -96,7 +96,71 @@ and manipulate the dataset are found in `context_agnostic_engagement.utils.io_ut
  
 ### Features
 There 4 main types of features extracted from the video lectures. These features can be categorised into six quality 
-verticals [(1)](https://www.k4all.org/wp-content/uploads/2019/08/IJCAI_paper_on_quality.pdf).
+verticals [(1)](https://www.k4all.org/wp-content/uploads/2019/08/IJCAI_paper_on_quality.pdf). All the features that are
+included in the dataset are summarised in Table 1.
+
+Table 1: Features extracted and available in the VLEngagement dataset with their variable type (Continuous vs. 
+Categorical) and their quality vertical.
+
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| Variable Type | Name                           | Quality Vertical    | Description                                                                            |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+|                                                                   Metadata-based   Features                                                                   |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| cat.          | Language                       | -                   | Language of instuction of the video lecture                                            |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| cat.          | Domain                         | -                   | Subject area (STEM or Miscellaneous)                                                   |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+|                                                                    Content-based   Features                                                                   |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| con.          | Word Count                     | Topic Coverage      | Word Count of Transcript                                                               |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| con.          | Title Word Count               | Topic Coverag       | Word Count of Title                                                                    |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| con.          | Document Entropy               | Topic Coverage      | Document Entropy of Transcript                                                         |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| con.          | Easiness (FK Easiness)         | Understandability   | FK Easiness based on FK Easiness                                                       |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| con.          | Stop-word Presence Rate        | Understandability   | Stopword Presence Rate of Transcript text                                              |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| con.          | Stop-word Coverage Rate        | Understandability   | Stopword Coverage Rate of Transcript text                                              |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| con.          | Preposition Rate               | Presentation        | Preposition Rate of Transcript text                                                    |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| con.          | Auxiliary Rate                 | Presentation        | Auxiliary Rate of Transcript text                                                      |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| con.          | To Be Rate                     | Presentation        | To-Be Verb Rate of Transcript text                                                     |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| con.          | Conjunction Rate               | Presentation        | Conjunction Rate of Transcript text                                                    |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| con.          | Normalisation Rate             | Presentation        | Normalisation Rate of Transcript text                                                  |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| con.          | Pronoun Rate                   | Presentation        | Pronoun Rate of Transcript text                                                        |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| con.          | Published Date                 | Freshness           | Duration between 01/01/1970 and the lecture published date (in days)                   |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+|                                                                   Wikipedia-based   Features                                                                  |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| cat.          | Top-5 Authoritative Topic URLs | Authority           | 5 Most Authoritative Topic URLs based on PageRank Score. 5 features in   this group    |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| con.          | Top-5 PageRank Scores          | Authority           | PageRank Scores of the top-5 most authoritative topics                                 |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| cat.          | Top-5 Covered Topic URLs       | Topic Coverage      | 5 Most Covered Topic URLs based on Cosine Similarity Score. 5 features in   this group |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| con.          | Top-5 Cosine Similarities      | Topic Coverage      | Cosine Similarity Scores of the top-5 most covered topics                              |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+|                                                                      Video-based Features                                                                     |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| con.          | Lecture Duration               | Topic Coverage      | Duration of the video (in seconds)                                                     |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| cat.          | Is Chunked                     | Presentation        | If the lecture consists of multiple videos                                             |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| cat.          | Lecture Type                   | Presentation        | Type of lecture (lecture, tutorial, invited talk etc.)                                 |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| con.          | Speaker speed                  | Presentation        | Speaker speed (words per minute)                                                       |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
+| con.          | Silence Period Rate (SPR)      | Presentation        | Fraction of silence in the lecture video                                               |
++---------------+--------------------------------+---------------------+----------------------------------------------------------------------------------------+
 
 #### General Features
 Features that extracted from Lecture metadata that are associated with the language and subject of the materials.
