@@ -192,7 +192,8 @@ Towards an Integrative Educational Recommender for Lifelong Learners. In AAAI Co
 (AAAI ’20), https://arxiv.org/pdf/1912.01592.pdf
 
 (4) David Milne, Ian H. Witten (2008) An effective, low-cost measure of semantic relatedness obtained from Wikipedia 
-links. In Proceedings of the first AAAI Workshop on Wikipedia and Artificial Intelligence, Chicago, I.L 
+links. In Proceedings of the first AAAI Workshop on Wikipedia and Artificial Intelligence, Chicago, I.L, 
+https://www.aaai.org/Papers/Workshops/2008/WS-08-15/WS08-15-005.pdf
 
 (5) Philip J. Guo, Juho Kim, and Rob Rubin (2014). How video production affects student engagement: an empirical study 
 of MOOC videos. In Proceedings of the first ACM conference on Learning @ scale conference (L@S ’14).
