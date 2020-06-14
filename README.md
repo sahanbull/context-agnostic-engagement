@@ -329,7 +329,7 @@ Table 2: Labels in VLEngagement dataset with their variable type (Continuous vs.
   <tr>
     <td class="tg-7zrl">cont.</td>
     <td class="tg-7zrl">View Count</td>
-    <td class="tg-7zrl">(5,&infin)</td>
+    <td class="tg-7zrl">(5,&#8734)</td>
     <td class="tg-7zrl">Popularity </td>
   </tr>
   <tr>
@@ -353,7 +353,7 @@ Table 2: Labels in VLEngagement dataset with their variable type (Continuous vs.
   <tr>
     <td class="tg-7zrl">cont.</td>
     <td class="tg-7zrl">Number of User Sessions</td>
-    <td class="tg-7zrl">(5,&infin)</td>
+    <td class="tg-7zrl">(5,&#8734)</td>
     <td class="tg-7zrl">Watch Time</td>
   </tr>
 </tbody>
