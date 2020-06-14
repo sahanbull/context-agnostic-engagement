@@ -405,7 +405,7 @@ Boosting Machines (GBM) and Random Forests (RM) models.
 
 ## Acknowledgements
 
-This research is part of the EU's Horizon 2020 grant No 761758 ([X5GON](www.x5gon.org)) and partially funded by the 
+This research is part of the EU's Horizon 2020 grant No 761758 ([X5GON](http://x5gon.org)) and partially funded by the 
 EPSRC Fellowship titled "Task Based Information Retrieval", under grant No EP/P024289/1.
 
 
