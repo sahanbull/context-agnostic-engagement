@@ -119,7 +119,7 @@ Categorical) and their quality vertical.
     <td class="tg-0pky">cat.</td>
     <td class="tg-0pky">Language</td>
     <td class="tg-0pky">-</td>
-    <td class="tg-0pky">Language of instuction of the video lecture</td>
+    <td class="tg-0pky">Language of instruction of the video lecture</td>
   </tr>
   <tr>
     <td class="tg-0pky">cat.</td>
