@@ -304,7 +304,60 @@ by prior work analyses done on engagement in video lectures [(5)](https://doi.or
 ### Labels
 There are several target labels available in the VLEngagement dataset. These target labels are created by aggregating 
 available explicit and implicit feedback measures in the repository. Mainly, the labels can be constructed as three 
-different types of quantification's of learner subjective assessment of a video lecture:
+different types of quantification's of learner subjective assessment of a video lecture. The labels available with the 
+dataset are outlined in Table 2:
+
+Table 2: Labels in VLEngagement dataset with their variable type (Continuous vs. Categorical), value interval
+ and category.
+
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-j6zm">Type</th>
+    <th class="tg-j6zm">Label</th>
+    <th class="tg-j6zm">Range Interval</th>
+    <th class="tg-j6zm">Category</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-7zrl">cont.</td>
+    <td class="tg-7zrl">Mean Star Rating</td>
+    <td class="tg-7zrl">[1,5)</td>
+    <td class="tg-7zrl">Explicit Rating </td>
+  </tr>
+  <tr>
+    <td class="tg-7zrl">cont.</td>
+    <td class="tg-7zrl">View Count</td>
+    <td class="tg-7zrl">(5,&infin)</td>
+    <td class="tg-7zrl">Popularity </td>
+  </tr>
+  <tr>
+    <td class="tg-7zrl">cont.</td>
+    <td class="tg-7zrl">SMNET</td>
+    <td class="tg-7zrl">[0,1)</td>
+    <td class="tg-7zrl">Watch Time  </td>
+  </tr>
+  <tr>
+    <td class="tg-7zrl">cont.</td>
+    <td class="tg-7zrl">SANET</td>
+    <td class="tg-7zrl">[0,1)</td>
+    <td class="tg-7zrl">Watch Time  </td>
+  </tr>
+  <tr>
+    <td class="tg-7zrl">cont.</td>
+    <td class="tg-7zrl">Std. of NET</td>
+    <td class="tg-7zrl">(0,1)</td>
+    <td class="tg-7zrl">Watch Time  </td>
+  </tr>
+  <tr>
+    <td class="tg-7zrl">cont.</td>
+    <td class="tg-7zrl">Number of User Sessions</td>
+    <td class="tg-7zrl">(5,&infin)</td>
+    <td class="tg-7zrl">Watch Time</td>
+  </tr>
+</tbody>
+</table>
 
 #### Explicit Rating
 In terms of rating labels, *Mean Star Rating* is provided for the video lecture using a star rating scale from 1 to 5 
