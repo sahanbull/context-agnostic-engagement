@@ -10,19 +10,22 @@ are the features of educational material that makes it engaging for learners.
 VLEngagement dataset can be considered as a highly impactful resource contribution to the research community as it will 
 enable a whole new line of research that is geared towards next generation information and knowledge management within 
 educational repositories, Massively Open Online Course platforms and other  Video platforms. The Dataset is a pivotal 
-milestone in uplifting **sustainability** of future knowledge systems having direct impact scalable, automatic quality 
+milestone in uplifting **sustainability** of future knowledge systems having direct impact on scalable, automatic quality 
 assurance [(1)](https://www.k4all.org/wp-content/uploads/2019/08/IJCAI_paper_on_quality.pdf), 
 [(2)](https://arxiv.org/pdf/2006.00592.pdf) and personalised education [(3)](https://arxiv.org/pdf/1912.01592.pdf). It 
 improves **transparency** by allowing the interpretation of humanly intuitive features and their influence in 
 population-based engagement prediction. 
 
 This dataset complements the ongoing effort of understanding learner engagement in video lectures 
-[(5)](DOI:https://doi.org/10.1145/2556325.2566239). However, it dramatically uplifts the research landscape by formally 
-establishes two objectively measurable novel tasks related to predicting engagement of educational 
-videos while making a significantly large, more-focused dataset and its baselines available to the research community. 
-AI in Education, Intelligent Tutoring and Educational Data Mining communities are on a rapid growth trajectory right now. 
+[(5)](DOI:https://doi.org/10.1145/2556325.2566239). However, it dramatically improves the research landscape by formally 
+establishing two objectively measurable novel tasks related to predicting engagement of educational 
+videos while making a significantly larger, more-focused dataset and its baselines available to the research community. 
+AI in Education, Intelligent Tutoring Systems and Educational Data Mining communities are on a rapid growth trajectory 
+right now and will benefit from this dataset as it directly addresses issues related to the respective knowledge fields. 
 The simultaneously growing need for scalable, personalised learning solutions makes this dataset a central piece within 
-community for many more years to come.     
+community that will enable improving scalable quality assurance and personalised educational recommendation in the years
+ to come. The value of this dataset to the field is expected to last for a long time and will increase with subsequent 
+ versions of the dataset being available in the future with more videos and more features.      
 
 ## Using the Dataset and Its Tools
 The resource is developed in a way that any researcher with very basic technological literacy can start building on top 
@@ -91,7 +94,7 @@ This section makes the VLEngagement datasets publicly available. The VLEngagemen
 
 ### Versions
 All the relevant datasets are available as a Comma Separated Value (CSV) file within a version subdirectory 
-(eg. `v1/VLEngagement_dataset_v1.cssv`). The current latest version of the dataset is `v1`. The tools required to load,
+(eg. `v1/VLEngagement_dataset_v1.csv`). The current latest version of the dataset is `v1`. The tools required to load,
 and manipulate the dataset are found in `context_agnostic_engagement.utils.io_utils` module.  
  
 ### Features
