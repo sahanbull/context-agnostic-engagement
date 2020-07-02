@@ -419,7 +419,7 @@ Education.", In workshop on Artificial Intelligence for United Nations SDGs at I
 Artificial Intelligence (IJCAI '19), https://www.k4all.org/wp-content/uploads/2019/08/IJCAI_paper_on_quality.pdf.
  
 (2) Sahan Bulathwela, Maria Perez-Ortiz, Aldo Lipani, Emine Yilmaz, and John Shawe-Taylor (2020). Predicting Engagement 
-in Video Lectures. In Proc. of Int. Conf. on Educational Data Mining (EDM ’20).  https://arxiv.org/pdf/2006.00592.pdf
+in Video Lectures. In Proc. of Int. Conf. on Educational Data Mining (EDM ’20).  https://educationaldatamining.org/files/conferences/EDM2020/papers/paper_62.pdf
 
 (3) Sahan Bulathwela, Maria Perez-Ortiz, Emine Yilmaz, and John Shawe-Taylor (2020). 
 Towards an Integrative Educational Recommender for Lifelong Learners. In AAAI Conference on Artificial Intelligence 
