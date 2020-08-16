@@ -1,4 +1,4 @@
-# VLEngagement: A Dataset of Video Lectures for Evaluating Population-based Engagement
+# Video lectures dataset
 
 This repository contains the dataset and source code of the experiments conducted at reported using the VLEngagement 
 Dataset. The VLEngagement dataset provides a set of statistics aimed at studying population-based engagement 
