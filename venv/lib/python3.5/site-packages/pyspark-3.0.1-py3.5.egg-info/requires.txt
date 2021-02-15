@@ -1,0 +1,11 @@
+py4j==0.10.9
+
+[ml]
+numpy>=1.7
+
+[mllib]
+numpy>=1.7
+
+[sql]
+pandas>=0.23.2
+pyarrow>=0.15.1

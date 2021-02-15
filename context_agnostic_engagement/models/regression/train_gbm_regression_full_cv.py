@@ -1,12 +1,10 @@
-from pyspark.sql import SparkSession
-
-import pandas as pd
-import numpy as np
-
 from os.path import join
+
+import numpy as np
+import pandas as pd
+from pyspark.sql import SparkSession
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.externals import joblib
-
 from sklearn.model_selection import GridSearchCV
 
 from context_agnostic_engagement.helper_tools.evaluation_metrics import get_rmse, get_spearman_r, get_pairwise_accuracy
