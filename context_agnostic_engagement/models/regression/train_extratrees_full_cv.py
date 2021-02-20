@@ -37,7 +37,7 @@ def main(args):
     label = get_label_from_dataset(args["label"])
 
     columns, lectures = get_features_from_dataset(col_cat, lectures)
-
+    print(columns)
     cnt = 1
     # make pairwise observations
     for i in range(folds):
