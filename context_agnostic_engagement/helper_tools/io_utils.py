@@ -4,7 +4,7 @@ MIN_NUM_SESSIONS = 5
 
 GEN_FEATURES = ['id', 'fold']
 
-CONT_COLS = ['language', 'domain', 'published_date',
+CONT_COLS = ['language', 'categories', 'time',
              'auxiliary_rate', 'conjugate_rate', 'normalization_rate', 'tobe_verb_rate', 'preposition_rate',
              'pronoun_rate', 'document_entropy', 'easiness', 'fraction_stopword_coverage',
              'fraction_stopword_presence', 'title_word_count', 'word_count']
@@ -17,14 +17,14 @@ WIKI_COLS = ['topic_1_pageRank_url', 'topic_1_pageRank_val', 'topic_2_pageRank_u
 
 VID_COLS = ['duration', 'type', 'is_chunked', "speaker_speed", 'silent_period_rate']
 
-MEAN_ENGAGEMENT_RATE = 'mean_engagement_rate'
-MED_ENGAGEMENT_RATE = 'median_engagement_rate'
+MEAN_ENGAGEMENT_RATE = 'mean_engagement'
+MED_ENGAGEMENT_RATE = 'med_engagement'
 MEAN_STAR_RATING = 'mean_star_rating'
 VIEW_COUNT = "view_count"
 
 LABEL_COLS = [MEAN_ENGAGEMENT_RATE, MED_ENGAGEMENT_RATE]
 
-DOMAIN_COL = "domain"
+DOMAIN_COL = "categories"
 ID_COL = "id"
 
 COL_VER_1 = CONT_COLS
@@ -98,7 +98,7 @@ def vectorise_wiki_features(lectures, columns):
 
 def _numerise_categorical(lectures):
     lectures["language"] = lectures["language"].apply(lambda l: 1 if l == "en" else 0)
-    lectures["domain"] = lectures["domain"].apply(lambda l: 1 if l == "stem" else 0)
+    lectures["categories"] = lectures["categories"].apply(lambda l: 1 if l == "stem" else 0)
 
     return lectures
 

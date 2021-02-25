@@ -53,9 +53,8 @@ class Dataset:
 
     def create_dataframe(self):
        self.df = pd.read_csv(self.path)
-       count_1=self.df[self.df["word_count"]>0 & (self.df["language"]=="en")].shape[0]
+       #count_1=self.df[self.df["word_count"]>0 & (self.df["language"]=="en")].shape[0]
        #and self.df["language"] == "en"
-       print("")
 
     def size_dataset(self):
        self.num_of_observations=self.df.shape[0]
@@ -71,10 +70,13 @@ class Dataset:
                list_remove_indexes.append(i)
        categories = np.delete(categories,list_remove_indexes)
        flattened_categories = [y for x in categories for y in x]
+       #(unique, counts) = np.unique(flattened_categories, return_counts=True)
+       #frequencies = np.asarray((unique, counts)).T
        g=sns.displot(flattened_categories)
        g.set_xticklabels(rotation=60)
        plt.tight_layout()
        plt.show()
+
 
     def univariate_analysis(self,list_variables):
         for i in range(len(list_variables)):
@@ -85,10 +87,12 @@ class Dataset:
             print("Minimum Value: ", min_variable)
 
     def lecture_type_stats(self):
-       self.lecture_types=self.df[TYPE].values
-       g = sns.displot(self.lecture_types)
-       plt.tight_layout()
-       plt.show()
+       self.lecture_types=self.df[self.df["language"]=="en"][TYPE].values
+       (unique, counts) = np.unique(self.lecture_types, return_counts=True)
+       frequencies = np.asarray((unique, counts)).T
+       # g = sns.displot(self.lecture_types)
+       # plt.tight_layout()
+       # plt.show()
 
 list_of_variables=[WORD_COUNT,TITLE_WORD_COUNT,
     DOCUMENT_ENTROPY,
