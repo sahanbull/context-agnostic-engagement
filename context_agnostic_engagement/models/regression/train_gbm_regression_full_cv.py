@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from pyspark.sql import SparkSession
 from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.externals import joblib
+import joblib
 from sklearn.model_selection import GridSearchCV
 
 from context_agnostic_engagement.helper_tools.evaluation_metrics import get_rmse, get_spearman_r, get_pairwise_accuracy
@@ -15,9 +15,9 @@ from context_agnostic_engagement.helper_tools.io_utils import load_lecture_datas
 def main(args):
     spark = (SparkSession.
              builder.
-             config("spark.driver.memory", "4g").
-             config("spark.executor.memory", "4g").
-             config("spark.driver.maxResultSize", "4g").
+             config("spark.driver.memory", "20g").
+             config("spark.executor.memory", "20g").
+             config("spark.driver.maxResultSize", "20g").
              config("spark.rpc.lookupTimeout", "300s").
              config("spark.rpc.lookupTimeout", "300s").
              config("spark.master", "local[{}]".format(args["k_folds"]))).getOrCreate()

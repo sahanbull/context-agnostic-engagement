@@ -5,7 +5,7 @@ import numpy as np
 
 from os.path import join
 from sklearn.ensemble import ExtraTreesClassifier
-from sklearn.externals import joblib
+import joblib
 
 from sklearn.model_selection import GridSearchCV
 
@@ -17,9 +17,9 @@ from context_agnostic_engagement.helper_tools.io_utils import load_lecture_datas
 def main(args):
     spark = (SparkSession.
              builder.
-             config("spark.driver.memory", "4g").
-             config("spark.executor.memory", "4g").
-             config("spark.driver.maxResultSize", "4g").
+             config("spark.driver.memory", "20g").
+             config("spark.executor.memory", "20g").
+             config("spark.driver.maxResultSize", "20g").
              config("spark.rpc.lookupTimeout", "300s").
              config("spark.rpc.lookupTimeout", "300s").
              config("spark.master", "local[{}]".format(args["k_folds"]))).getOrCreate()
