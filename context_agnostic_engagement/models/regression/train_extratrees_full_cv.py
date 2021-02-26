@@ -51,10 +51,10 @@ def main(args):
             Y_train = np.log(Y_train)
             Y_test = np.log(Y_test)
 
-        # params = {'n_estimators': [100, 500, 750, 1000, 2000, 5000],
-        #           'max_depth': [3, 5, 10, 25]}
-        params = {'n_estimators': [100],
-                            'max_depth': [3]}
+        params = {'n_estimators': [100, 500, 750, 1000, 2000, 5000],
+                  'max_depth': [3, 5, 10, 25]}
+        # params = {'n_estimators': [100],
+        #                     'max_depth': [3]}
 
         print("\n\n\n ========== dataset {} created !!! ===========\n\n".format(cnt))
         print("no. of features: {}".format(X_train.shape[1]))

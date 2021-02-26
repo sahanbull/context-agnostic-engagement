@@ -81,7 +81,7 @@ def main(args):
 
         train_spearman, test_spearman = get_spearman_r(Y_train, Y_test, train_pred, test_pred)
 
-        train_acc, test_acc = get_pairwise_accuracy(spark, label, fold_train_df, fold_test_df, train_pred, test_pred)
+        # train_acc, test_acc = get_pairwise_accuracy(spark, label, fold_train_df, fold_test_df, train_pred, test_pred)
 
         best_model = {}
         best_model["params"] = "{}_{}_{}_{}".format(grid_model.best_estimator_.n_estimators,
@@ -93,8 +93,8 @@ def main(args):
         best_model["max_depth"] = grid_model.best_estimator_.max_depth
         best_model["min_sample_split"] = grid_model.best_estimator_.n_estimators
         best_model["learning_rate"] = grid_model.best_estimator_.max_depth
-        best_model["train_accuracy"] = train_acc
-        best_model["test_accuracy"] = test_acc
+        # best_model["train_accuracy"] = train_acc
+        # best_model["test_accuracy"] = test_acc
         best_model["train_rmse"] = train_rmse
         best_model["test_rmse"] = test_rmse
         best_model["train_spearman_r"] = train_spearman.correlation
@@ -104,8 +104,8 @@ def main(args):
         best_model["fold_id"] = cnt
 
         print("Model: {}".format(best_model["params"]))
-        print("Train Accuracy: {}".format(best_model["train_accuracy"]))
-        print("Test Accuracy: {}".format(best_model["test_accuracy"]))
+        # print("Train Accuracy: {}".format(best_model["train_accuracy"]))
+        # print("Test Accuracy: {}".format(best_model["test_accuracy"]))
 
         performance_values.append(best_model)
         pd.DataFrame(performance_values).to_csv(join(args["output_dir"], "results.csv"), index=False)
