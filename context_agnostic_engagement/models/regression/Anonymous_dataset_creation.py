@@ -13,7 +13,7 @@ class Anonymous_Dataset:
     def create_dataframe(self):
        self.df = pd.read_csv(self.path)
        self.df=shuffle(self.df,random_state=42)
-       self.df.reset_index(inplace=True, drop=True)
+
 
        slug_list = list(self.df["slug"])
        slug_id_mapping = {slug: id + 1 for id, slug in enumerate(slug_list)}
@@ -40,8 +40,13 @@ class Anonymous_Dataset:
 
 
         ##published date rounded##
+       self.df["freshness"]=0
        for i in range(self.df.shape[0]):
-           self.df["time"].loc[i] = round(self.df["time"].loc[i]/10)*10
+           self.df["freshness"].loc[i] = round(self.df["time"].loc[i]/10)*10
+
+       #duration rounded##
+       for i in range(self.df.shape[0]):
+           self.df["duration"].loc[i] = round(self.df["duration"].loc[i]/10) * 10
 
         ##lecture duration##
        for i in range(self.df.shape[0]):
@@ -62,8 +67,8 @@ class Anonymous_Dataset:
            idx += 1
 
        self.df.sort_values(by="fold", inplace=True)
-
-       self.df.to_csv('/home/meghana/Desktop/VLEngagement/Anonymous_dataset.csv')
+       self.df.reset_index(inplace=True, drop=True)
+       self.df.to_csv('/home/meghana/Desktop/VLEngagement/Anonymous_dataset.csv',index=False)
        print("")
 
 
