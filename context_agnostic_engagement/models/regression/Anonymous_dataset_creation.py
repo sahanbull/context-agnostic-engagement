@@ -48,8 +48,8 @@ class Anonymous_Dataset:
            self.df["total_lecture_duration"].loc[i] = round(self.df["total_lecture_duration"].loc[i]/10)*10
 
         ##title word count##
-           noise = self.df["title_word_count"] * np.random.normal(0., 1., self.df.shape[0]) * 0.1
-           self.df["title_word_count"] = (self.df["title_word_count"] + noise).round().astype("int")
+       noise = self.df["title_word_count"] * np.random.normal(0., 1., self.df.shape[0]) * 0.1
+       self.df["title_word_count"] = (self.df["title_word_count"] + noise).round().astype("int")
 
        num_folds=5
        kf = KFold(n_splits=num_folds, random_state=42, shuffle=True)
