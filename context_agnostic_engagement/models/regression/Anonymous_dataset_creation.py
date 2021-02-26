@@ -16,10 +16,6 @@ class Anonymous_Dataset:
        self.df=shuffle(self.df,random_state=42)
 
 
-       slug_list = list(self.df["slug"])
-       slug_id_mapping = {slug: id + 1 for id, slug in enumerate(slug_list)}
-       self.df["id"] = self.df["slug"].apply(lambda l: slug_id_mapping[l])
-
        stem_category_list=["Life_Sciences", "Physics","Technology", "Mathematics","Computer_Science", "Data_Science","Computers"]
 
        for i in range(self.df.shape[0]):
@@ -69,6 +65,9 @@ class Anonymous_Dataset:
 
        self.df.sort_values(by="fold", inplace=True)
        self.df.reset_index(inplace=True, drop=True)
+       slug_list = list(self.df["slug"])
+       slug_id_mapping = {slug: id + 1 for id, slug in enumerate(slug_list)}
+       self.df["id"] = self.df["slug"].apply(lambda l: slug_id_mapping[l])
        self.df.to_csv(PATH_TO_SAVE,index=False)
        print("")
 
