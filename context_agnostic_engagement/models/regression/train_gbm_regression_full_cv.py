@@ -86,13 +86,13 @@ def main(args):
         best_model = {}
         best_model["params"] = "{}_{}_{}_{}".format(grid_model.best_estimator_.n_estimators,
                                                     grid_model.best_estimator_.max_depth,
-                                                    grid_model.best_estimator_.min_sample_split,
+                                                    grid_model.best_estimator_.min_samples_split,
                                                     grid_model.best_estimator_.learning_rate)
 
         best_model["n_estimators"] = grid_model.best_estimator_.n_estimators
         best_model["max_depth"] = grid_model.best_estimator_.max_depth
-        best_model["min_sample_split"] = grid_model.best_estimator_.n_estimators
-        best_model["learning_rate"] = grid_model.best_estimator_.max_depth
+        best_model["min_sample_split"] = grid_model.best_estimator_.min_samples_split
+        best_model["learning_rate"] = grid_model.best_estimator_.learning_rate
         # best_model["train_accuracy"] = train_acc
         # best_model["test_accuracy"] = test_acc
         best_model["train_rmse"] = train_rmse
