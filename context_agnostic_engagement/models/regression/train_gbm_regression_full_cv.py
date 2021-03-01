@@ -53,7 +53,7 @@ def main(args):
                   'max_depth': [10],
                   'random_state': [42],
                   "min_samples_split": [10],
-                  "learning_rate": [.01, ]}
+                  "learning_rate": [.01]}
 
         print("\n\n\n ========== dataset {} created !!! ===========\n\n".format(cnt))
         print("no. of features: {}".format(X_train.shape[1]))
