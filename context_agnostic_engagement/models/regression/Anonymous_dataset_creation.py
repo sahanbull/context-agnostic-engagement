@@ -5,6 +5,7 @@ from sklearn.utils import shuffle
 
 PATH_TO_DATASET_1="/home/meghana/Desktop/VLEngagement/new_dataset.csv"
 PATH_TO_SAVE='/home/meghana/Desktop/VLEngagement/Anonymous_dataset.csv'
+PATH_TO_SAVE_MAPPING="/home/meghana/Desktop/VLEngagement/mapping"
 
 class Anonymous_Dataset:
 
@@ -66,7 +67,13 @@ class Anonymous_Dataset:
        self.df.sort_values(by="fold", inplace=True)
        self.df.reset_index(inplace=True, drop=True)
        slug_list = list(self.df["slug"])
+
        slug_id_mapping = {slug: id + 1 for id, slug in enumerate(slug_list)}
+       file=open(PATH_TO_SAVE_MAPPING,"w")
+       str_dictionary=repr(slug_id_mapping)
+       file.write("slug_id_mapping="+str_dictionary+"\n")
+       file.close()
+
        self.df["id"] = self.df["slug"].apply(lambda l: slug_id_mapping[l])
        self.df.to_csv(PATH_TO_SAVE,index=False)
        print("")

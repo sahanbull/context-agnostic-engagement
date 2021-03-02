@@ -70,13 +70,30 @@ class Dataset:
                list_remove_indexes.append(i)
        categories = np.delete(categories,list_remove_indexes)
        flattened_categories = [y for x in categories for y in x]
-       #(unique, counts) = np.unique(flattened_categories, return_counts=True)
-       #frequencies = np.asarray((unique, counts)).T
-       g=sns.displot(flattened_categories)
-       g.set_xticklabels(rotation=60)
-       plt.tight_layout()
+       (unique, counts) = np.unique(flattened_categories, return_counts=True)
+       frequencies = np.asarray((unique, counts)).T
+       fig, ax = plt.subplots()
+       #g=sns.displot(flattened_categories)
+       #g = plt.hist(flattened_categories, align='left')
+       # #plt.xticks(rotation=60)
+       # for label in ax.xaxis.get_xticklabels():
+       #     label.set_horizontalalignment('left')
+       # g.set_xticklabels(rotation=60)
+       # plt.tight_layout()
+       # plt.show()
+       # pie, ax = plt.subplots(figsize=[10, 6])
+       # labels = unique.tolist()
+       # _,_,pct_text=plt.pie(x=counts.tolist(), autopct="%.1f%%", explode=[0.03] * len(counts.tolist()), labels=labels, pctdistance=1.2,labeldistance=1.3,rotatelabels=30)
+       # for txt in pct_text:
+       #  txt.set_rotation(60)
+       # plt.title("Categories distribution", fontsize=14);
+       # plt.show()
+       fig, ax = plt.subplots(figsize=(12, 6))
+       #plt.boxplot(self.df[self.df['total_lecture_duration']<500000]['total_lecture_duration'])
+       #plt.boxplot(self.df['duration'])
+       #ax.set_ylim([0,1000])
+       sns.displot(self.df[self.df["duration"]<40000],x="duration",kind="kde")
        plt.show()
-
 
     def univariate_analysis(self,list_variables):
         for i in range(len(list_variables)):
@@ -85,6 +102,17 @@ class Dataset:
             print("Statistics for: ",list_variables[i])
             print("Maximum Value: ",max_variable)
             print("Minimum Value: ", min_variable)
+
+    def multivariate_analysis(self):
+        full_data_corr = self.df.corr(method='pearson')
+        mask = np.zeros_like(full_data_corr, dtype=np.bool)
+        mask[np.triu_indices_from(mask)] = True
+        # f, ax = plt.subplots(figsize=(11, 9))
+        cmap = sns.diverging_palette(220, 10, as_cmap=True)
+        sns.heatmap(full_data_corr, cmap=cmap, vmin=-1., vmax=1., center=0,
+                    square=True, linewidths=.5, cbar_kws={"shrink": .5})
+        plt.tight_layout()
+        plt.show()
 
     def lecture_type_stats(self):
        self.lecture_types=self.df[self.df["language"]=="en"][TYPE].values
@@ -127,8 +155,9 @@ COVERAGE_TOPIC_RANK_5_SCORE
 new_dataset=Dataset(PATH_TO_DATASET_1)
 new_dataset.create_dataframe()
 new_dataset.size_dataset()
+#new_dataset.multivariate_analysis()
 #new_dataset.univariate_analysis(list_of_variables)
 #new_dataset.lecture_type_stats()
-#new_dataset.categories_stats()
+new_dataset.categories_stats()
 print("")
 
