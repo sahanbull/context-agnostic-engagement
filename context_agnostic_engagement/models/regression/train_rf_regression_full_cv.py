@@ -5,7 +5,7 @@ import numpy as np
 
 from os.path import join
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.externals import joblib
+import joblib
 
 from sklearn.model_selection import GridSearchCV
 
@@ -17,9 +17,9 @@ from context_agnostic_engagement.helper_tools.io_utils import load_lecture_datas
 def main(args):
     spark = (SparkSession.
              builder.
-             config("spark.driver.memory", "4g").
-             config("spark.executor.memory", "4g").
-             config("spark.driver.maxResultSize", "4g").
+             config("spark.driver.memory", "20g").
+             config("spark.executor.memory", "20g").
+             config("spark.driver.maxResultSize", "20g").
              config("spark.rpc.lookupTimeout", "300s").
              config("spark.rpc.lookupTimeout", "300s").
              config("spark.master", "local[{}]".format(args["k_folds"]))).getOrCreate()
@@ -37,7 +37,7 @@ def main(args):
     label = get_label_from_dataset(args["label"])
 
     columns, lectures = get_features_from_dataset(col_cat, lectures)
-
+    print(columns)
     cnt = 1
     # make pairwise observations
     for i in range(folds):
@@ -53,15 +53,18 @@ def main(args):
 
         params = {'n_estimators': [100, 500, 750, 1000, 2000, 5000],
                   'max_depth': [3, 5, 10, 25]}
+        # params = {'n_estimators': [100],
+        #                     'max_depth': [3]}
 
         print("\n\n\n ========== dataset {} created !!! ===========\n\n".format(cnt))
         print("no. of features: {}".format(X_train.shape[1]))
         print("training data size: {}".format(len(X_train)))
         print("testing data size: {}\n\n".format(len(X_test)))
 
+        #grid_model = GridSearchCV(RandomForestRegressor(), params, cv=folds, n_jobs=jobs, refit=True)
         grid_model = GridSearchCV(RandomForestRegressor(), params, cv=folds, n_jobs=jobs, refit=True)
         grid_model.fit(X_train, Y_train)
-
+        print('model fitted')
         train_pred = grid_model.predict(X_train)
 
         print("Model Trained...")
@@ -79,17 +82,17 @@ def main(args):
         train_rmse, test_rmse = get_rmse(Y_train, Y_test, train_pred, test_pred)
 
         train_spearman, test_spearman = get_spearman_r(Y_train, Y_test, train_pred, test_pred)
-
-        train_acc, test_acc = get_pairwise_accuracy(spark, label, fold_train_df, fold_test_df, train_pred, test_pred)
-
+        #
+        # train_acc, test_acc = get_pairwise_accuracy(spark, label, fold_train_df, fold_test_df, train_pred, test_pred)
+        #
         best_model = {}
         best_model["params"] = "{}_{}".format(grid_model.best_estimator_.n_estimators,
                                               grid_model.best_estimator_.max_depth)
         best_model["n_estimators"] = grid_model.best_estimator_.n_estimators
         best_model["max_depth"] \
             = grid_model.best_estimator_.max_depth
-        best_model["train_accuracy"] = train_acc
-        best_model["test_accuracy"] = test_acc
+        # best_model["train_accuracy"] = train_acc
+        # best_model["test_accuracy"] = test_acc
         best_model["train_rmse"] = train_rmse
         best_model["test_rmse"] = test_rmse
         best_model["train_spearman_r"] = train_spearman.correlation
@@ -97,11 +100,11 @@ def main(args):
         best_model["train_spearman_p"] = train_spearman.pvalue
         best_model["test_spearman_p"] = test_spearman.pvalue
         best_model["fold_id"] = cnt
-
+        #
         print("Model: {}".format(best_model["params"]))
-        print("Train Accuracy: {}".format(best_model["train_accuracy"]))
-        print("Test Accuracy: {}".format(best_model["test_accuracy"]))
-
+        # print("Train Accuracy: {}".format(best_model["train_accuracy"]))
+        # print("Test Accuracy: {}".format(best_model["test_accuracy"]))
+        #
         performance_values.append(best_model)
         pd.DataFrame(performance_values).to_csv(join(args["output_dir"], "results.csv"), index=False)
 
