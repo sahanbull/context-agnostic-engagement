@@ -49,11 +49,11 @@ def main(args):
             Y_train = np.log(Y_train)
             Y_test = np.log(Y_test)
 
-        params = {'n_estimators': [500, 750, 1000],
-                  'max_depth': [10],
+        params = {'n_estimators': [100, 500, 750, 1000],
+                  'max_depth': [3, 5, 10, 25],
                   'random_state': [42],
-                  "min_samples_split": [10],
-                  "learning_rate": [.01]}
+                  "min_samples_split": [2, 6, 10],
+                  "learning_rate": [.001, .01, .1]}
 
         print("\n\n\n ========== dataset {} created !!! ===========\n\n".format(cnt))
         print("no. of features: {}".format(X_train.shape[1]))

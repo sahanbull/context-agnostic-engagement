@@ -64,7 +64,7 @@ def main(args):
         #grid_model = GridSearchCV(RandomForestRegressor(), params, cv=folds, n_jobs=jobs, refit=True)
         grid_model = GridSearchCV(RandomForestRegressor(), params, cv=folds, n_jobs=jobs, refit=True)
         grid_model.fit(X_train, Y_train)
-        print('model fitted')
+
         train_pred = grid_model.predict(X_train)
 
         print("Model Trained...")
