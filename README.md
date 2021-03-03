@@ -307,7 +307,7 @@ as proposed by [(6)](https://asistdl.onlinelibrary.wiley.com/doi/abs/10.1002/asi
 
 The features are calculated using teh formulae listed below:
 
-<img src="docs/figs/features.jpg.jpg">
+<img src="docs/figs/features.jpg" width="324" height="777">
 
 
 
