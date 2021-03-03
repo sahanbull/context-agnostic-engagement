@@ -432,10 +432,12 @@ it is observed that the new dataset too has a bimodal distribution for duration.
 
 There are lectures belonging to diverse topic categories in the dataset. For preserving anonymity, 
 we have grouped these lectures into `stem` and `misc` groups. The original data source has around 21
-categories on the top level of which the distribution is presented below.
+categories on the top level of which the distribution is presented below. 
 
 <img align="center" src="docs/figs/categories.jpg">
 
+Although majority of the lectures
+belong to Computer Science category as pointed in the paper, there are other categories that are diverse in this dataset.
 
 ## `content_agnostic_engagement` Module
 This section contains the code that enables the research community to work with the VLEngagement dataset. The folder
