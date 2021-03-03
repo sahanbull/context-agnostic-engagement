@@ -6,7 +6,7 @@ engagement in video lectures, together with other conventional metrics in subjec
 ratings and number of views.  We believe the dataset will serve the community applying AI in Education to further 
 understand what are the features of educational material that makes it engaging for learners.
 
-## Use Cases
+## Use-Cases
 The dataset is particularly suited to solve the cold-start problem found in educational recommender systems, both when 
 i) ***user cold-start***, new users join the system and we may not have enough information about their context so we may
 simply recommend population-based engaging lectures for a specific query topic and ii) ***item cold-start***, new 
@@ -92,6 +92,18 @@ This section makes the VLEngagement datasets publicly available. The VLEngagemen
  peer-reviewed conferences. Lectures are reviewed and hence material is controlled for correctness of knowledge and 
  pedagogical robustness. 
 
+### Versions
+All the relevant datasets are available as Comma Separated Value (CSV) file within a dataset subdirectory 
+(eg. `v1/VLEngagement_dataset_v1.csv`). At present, there are two datasets that are available through this resource. 
+
+| Dataset | Number of Lectures | Number of Users   |  Number of Star Ratings             | Log Recency | URL |
+|---------|--------------------|-------------------|--------------------------|----|-----|
+| v1      | 4046               | Around 150k       | 1250 | Until  February 17, 2018 | [Link to Dataset](http://videolectures.net/) |
+| ***12k***     | 11568              | Over 1.1 Million  | 2127  | Until February 01, 2021 |  [Link to Dataset](http://videolectures.net/) |
+
+The latest dataset of this collection is `12k`. The tools required to load,
+and manipulate the datasets are found in `context_agnostic_engagement.utils.io_utils` module.
+
 ### Anonymity
 We restrict the final dataset to lectures that have been viewed by at least 5 unique users to preserve anonymity of 
 users and have reliable engagement measurements. Additionally, a regime of techniques are used for preserving the
@@ -102,22 +114,13 @@ and Computers subjects to `stem` category and the other subjects to `misc` categ
 *Published Date*, rounding to the nearest 10 days. *Lecture Duration* is rounded to the nearest 10 seconds. 
 Gaussian white noise (10%) is added to *Title Word Count* feature and rounded to the nearest integer.
 
-### Versions
-All the relevant datasets are available as Comma Separated Value (CSV) file within a dataset subdirectory 
-(eg. `v1/VLEngagement_dataset_v1.csv`). At present, there are two datasets that are available through this resource. 
-
-| Dataset | Number of Lectures | Number of Users   | Log Recency              | URL |
-|---------|--------------------|-------------------|--------------------------|-----|
-| v1      | 4046               | Around 150k       | Until  February 17, 2018 | [Link to Dataset](http://videolectures.net/) |
-| ***12k***     | 11568              | Over 1.1 Million  | Until February 01, 2021  |  [Link to Dataset](http://videolectures.net/) |
-
-The latest dataset of this collection is `12k`. The tools required to load,
-and manipulate the datasets are found in `context_agnostic_engagement.utils.io_utils` module.  
 
 ### Features
 There 4 main types of features extracted from the video lectures. These features can be categorised into six quality 
-verticals [(1)](https://www.k4all.org/wp-content/uploads/2019/08/IJCAI_paper_on_quality.pdf). All the features that are
-included in the dataset are summarised in Table 1.
+verticals [(1)](https://www.k4all.org/wp-content/uploads/2019/08/IJCAI_paper_on_quality.pdf). 
+
+All the features that are included in the dataset are summarised in Table 1.
+
 
 Table 1: Features extracted and available in the VLEngagement dataset with their variable type (Continuous vs. 
 Categorical) and their quality vertical.
@@ -309,8 +312,6 @@ The features are calculated using teh formulae listed below:
 
 <img align="center" src="docs/figs/features.jpg" width="324" height="777">
 
-
-
 The tokens used are listed below:
 
 <img align="center" src="docs/figs/tokens.jpg" width="1016" height="726">
@@ -414,6 +415,28 @@ view logs and use the `Normalised Engagement Time (NET)` to compute the *Median 
 has been proposed as the gold standard for engagement with educational materials in previous work 
 [(5)](https://doi.org/10.1145/2556325.2566239). We also calculate the *Average of Normalised Engagement (ANET)*. 
 
+## VLEngagement 12k Dataset
+
+*** VLEngagement 12k Dataset*** is the latest addition of video lecture engagement data to this collection. 
+This dataset contains all the english lectures from our previous release of lectures and contains additional lectures. 
+
+### Lecture Duration Distribution
+
+Duration of lectures is evidenced to be one of the most influential features when it comes to engagement with video 
+lectures. Similar to the observations of our previous work [(2)](https://educationaldatamining.org/files/conferences/EDM2020/papers/paper_62.pdf), 
+it is observed that the new dataset too has a bimodal distribution for duration. The density plot below presents this.
+
+<img align="center" src="docs/figs/duration.jpg">
+
+### Lecture Categories
+
+There are lectures belonging to diverse topic categories in the dataset. For preserving anonymity, 
+we have grouped these lectures into `stem` and `misc` groups. The original data source has around 21
+categories on the top level of which the distribution is presented below.
+
+<img align="center" src="docs/figs/categories.jpg">
+
+
 ## `content_agnostic_engagement` Module
 This section contains the code that enables the research community to work with the VLEngagement dataset. The folder
 structure in this section logically separates the code into three modules.
@@ -452,7 +475,8 @@ Education.", In workshop on Artificial Intelligence for United Nations SDGs at I
 Artificial Intelligence (IJCAI '19), https://www.k4all.org/wp-content/uploads/2019/08/IJCAI_paper_on_quality.pdf.
  
 (2) Sahan Bulathwela, Maria Perez-Ortiz, Aldo Lipani, Emine Yilmaz, and John Shawe-Taylor (2020). Predicting Engagement 
-in Video Lectures. In Proc. of Int. Conf. on Educational Data Mining (EDM ’20).  https://educationaldatamining.org/files/conferences/EDM2020/papers/paper_62.pdf
+in Video Lectures. In Proc. of Int. Conf. on Educational Data Mining (EDM ’20).
+https://educationaldatamining.org/files/conferences/EDM2020/papers/paper_62.pdf
 
 (3) Sahan Bulathwela, Maria Perez-Ortiz, Emine Yilmaz, and John Shawe-Taylor (2020). 
 Towards an Integrative Educational Recommender for Lifelong Learners. In AAAI Conference on Artificial Intelligence 
