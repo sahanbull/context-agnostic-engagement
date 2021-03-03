@@ -307,13 +307,13 @@ as proposed by [(6)](https://asistdl.onlinelibrary.wiley.com/doi/abs/10.1002/asi
 
 The features are calculated using teh formulae listed below:
 
-<img src="docs/figs/features.jpg" width="324" height="777">
+<div style="text-align:center"><img src="docs/figs/features.jpg" width="324" height="777"></div>
 
 
 
 The tokens used are listed below:
 
-<img src="docs/figs/tokens.jpg" width="1016" height="726">
+<div style="text-align:center"><img src="docs/figs/tokens.jpg" width="1016" height="726"></div>
 
 
 #### Wikipedia-based Features
