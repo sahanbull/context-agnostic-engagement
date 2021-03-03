@@ -101,8 +101,8 @@ All the relevant datasets are available as Comma Separated Value (CSV) file with
 
 | Dataset | Number of Lectures | Number of Users   |  Number of Star Ratings             | Log Recency | URL |
 |---------|--------------------|-------------------|--------------------------|----|-----|
-| 4k     | 4046               | Around 150k       | 1250 | Until  February 17, 2018 | [Link to Dataset](http://videolectures.net/) |
-| ***12k***     | 11568              | Over 1.1 Million  | 2127  | Until February 01, 2021 |  [Link to Dataset](http://videolectures.net/) |
+| 4k     | 4046               | Around 150k       | 1250 | Until  February 17, 2018 | [Link to Dataset](https://github.com/sahanbull/context-agnostic-engagement/tree/master/VLEngagement_datasets/4k) |
+| ***12k***     | 11568              | Over 1.1 Million  | 2127  | Until February 01, 2021 |  [Link to Dataset](https://github.com/sahanbull/context-agnostic-engagement/tree/master/VLEngagement_datasets/12k) |
 
 The latest dataset of this collection is `12k`. The tools required to load,
 and manipulate the datasets are found in `context_agnostic_engagement.utils.io_utils` module.
