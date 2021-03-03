@@ -1,12 +1,10 @@
-from pyspark.sql import SparkSession
-
-import pandas as pd
-import numpy as np
-
 from os.path import join
-from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.externals import joblib
 
+import numpy as np
+import pandas as pd
+from pyspark.sql import SparkSession
+from sklearn.ensemble import GradientBoostingRegressor
+import joblib
 from sklearn.model_selection import GridSearchCV
 
 from context_agnostic_engagement.helper_tools.evaluation_metrics import get_rmse, get_spearman_r, get_pairwise_accuracy
@@ -17,9 +15,9 @@ from context_agnostic_engagement.helper_tools.io_utils import load_lecture_datas
 def main(args):
     spark = (SparkSession.
              builder.
-             config("spark.driver.memory", "4g").
-             config("spark.executor.memory", "4g").
-             config("spark.driver.maxResultSize", "4g").
+             config("spark.driver.memory", "20g").
+             config("spark.executor.memory", "20g").
+             config("spark.driver.maxResultSize", "20g").
              config("spark.rpc.lookupTimeout", "300s").
              config("spark.rpc.lookupTimeout", "300s").
              config("spark.master", "local[{}]".format(args["k_folds"]))).getOrCreate()
@@ -83,20 +81,20 @@ def main(args):
 
         train_spearman, test_spearman = get_spearman_r(Y_train, Y_test, train_pred, test_pred)
 
-        train_acc, test_acc = get_pairwise_accuracy(spark, label, fold_train_df, fold_test_df, train_pred, test_pred)
+        # train_acc, test_acc = get_pairwise_accuracy(spark, label, fold_train_df, fold_test_df, train_pred, test_pred)
 
         best_model = {}
         best_model["params"] = "{}_{}_{}_{}".format(grid_model.best_estimator_.n_estimators,
                                                     grid_model.best_estimator_.max_depth,
-                                                    grid_model.best_estimator_.min_sample_split,
+                                                    grid_model.best_estimator_.min_samples_split,
                                                     grid_model.best_estimator_.learning_rate)
 
         best_model["n_estimators"] = grid_model.best_estimator_.n_estimators
         best_model["max_depth"] = grid_model.best_estimator_.max_depth
-        best_model["min_sample_split"] = grid_model.best_estimator_.n_estimators
-        best_model["learning_rate"] = grid_model.best_estimator_.max_depth
-        best_model["train_accuracy"] = train_acc
-        best_model["test_accuracy"] = test_acc
+        best_model["min_sample_split"] = grid_model.best_estimator_.min_samples_split
+        best_model["learning_rate"] = grid_model.best_estimator_.learning_rate
+        # best_model["train_accuracy"] = train_acc
+        # best_model["test_accuracy"] = test_acc
         best_model["train_rmse"] = train_rmse
         best_model["test_rmse"] = test_rmse
         best_model["train_spearman_r"] = train_spearman.correlation
@@ -106,8 +104,8 @@ def main(args):
         best_model["fold_id"] = cnt
 
         print("Model: {}".format(best_model["params"]))
-        print("Train Accuracy: {}".format(best_model["train_accuracy"]))
-        print("Test Accuracy: {}".format(best_model["test_accuracy"]))
+        # print("Train Accuracy: {}".format(best_model["train_accuracy"]))
+        # print("Test Accuracy: {}".format(best_model["test_accuracy"]))
 
         performance_values.append(best_model)
         pd.DataFrame(performance_values).to_csv(join(args["output_dir"], "results.csv"), index=False)

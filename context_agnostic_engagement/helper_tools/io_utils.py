@@ -4,27 +4,32 @@ MIN_NUM_SESSIONS = 5
 
 GEN_FEATURES = ['id', 'fold']
 
-CONT_COLS = ['language', 'domain', 'published_date',
+CONT_COLS = ['categories', 'freshness',
              'auxiliary_rate', 'conjugate_rate', 'normalization_rate', 'tobe_verb_rate', 'preposition_rate',
              'pronoun_rate', 'document_entropy', 'easiness', 'fraction_stopword_coverage',
              'fraction_stopword_presence', 'title_word_count', 'word_count']
 
-WIKI_COLS = ['topic_1_pageRank_url', 'topic_1_pageRank_val', 'topic_2_pageRank_url', 'topic_2_pageRank_val',
-             'topic_3_pageRank_url', 'topic_3_pageRank_val', 'topic_4_pageRank_url', 'topic_4_pageRank_val',
-             'topic_5_pageRank_url', 'topic_5_pageRank_val', 'topic_1_cosine_url', 'topic_1_cosine_val',
-             'topic_2_cosine_url', 'topic_2_cosine_val', 'topic_3_cosine_url', 'topic_3_cosine_val',
-             'topic_4_cosine_url', 'topic_4_cosine_val', 'topic_5_cosine_url', 'topic_5_cosine_val']
+WIKI_COLS = ['auth_topic_rank_1_url', 'auth_topic_rank_1_score',
+             'auth_topic_rank_2_url', 'auth_topic_rank_2_score',
+             'auth_topic_rank_3_url', 'auth_topic_rank_3_score',
+             'auth_topic_rank_4_url', 'auth_topic_rank_4_score',
+             'auth_topic_rank_5_url', 'auth_topic_rank_5_score',
+             'coverage_topic_rank_1_url', 'coverage_topic_rank_1_score',
+             'coverage_topic_rank_2_url', 'coverage_topic_rank_2_score',
+             'coverage_topic_rank_3_url', 'coverage_topic_rank_3_score',
+             'coverage_topic_rank_4_url', 'coverage_topic_rank_4_score',
+             'coverage_topic_rank_5_url', 'coverage_topic_rank_5_score']
 
-VID_COLS = ['duration', 'type', 'is_chunked', "speaker_speed", 'silent_period_rate']
+VID_COLS = ['duration', 'type', 'has_parts', "speaker_speed", 'silent_period_rate']
 
-MEAN_ENGAGEMENT_RATE = 'mean_engagement_rate'
-MED_ENGAGEMENT_RATE = 'median_engagement_rate'
+MEAN_ENGAGEMENT_RATE = 'mean_engagement'
+MED_ENGAGEMENT_RATE = 'med_engagement'
 MEAN_STAR_RATING = 'mean_star_rating'
 VIEW_COUNT = "view_count"
 
 LABEL_COLS = [MEAN_ENGAGEMENT_RATE, MED_ENGAGEMENT_RATE]
 
-DOMAIN_COL = "domain"
+DOMAIN_COL = "categories"
 ID_COL = "id"
 
 COL_VER_1 = CONT_COLS
@@ -71,7 +76,7 @@ def vectorise_wiki_features(lectures, columns):
 
     """
     # get pageRank URL
-    col_name = "topic_1_pageRank_url"
+    col_name = "auth_topic_rank_1_url"
     lectures[col_name] = lectures[col_name].apply(_wikititle_from_url)
 
     dummies = pd.get_dummies(lectures[col_name]).rename(columns=lambda x: 'authority_' + str(x))
@@ -80,7 +85,7 @@ def vectorise_wiki_features(lectures, columns):
     columns += list(dummies.columns)
 
     # get cosine URL
-    col_name = "topic_1_cosine_url"
+    col_name = "coverage_topic_rank_1_url"
     lectures[col_name] = lectures[col_name].apply(_wikititle_from_url)
 
     dummies = pd.get_dummies(lectures[col_name]).rename(columns=lambda x: 'coverage_' + str(x))
@@ -97,8 +102,8 @@ def vectorise_wiki_features(lectures, columns):
 
 
 def _numerise_categorical(lectures):
-    lectures["language"] = lectures["language"].apply(lambda l: 1 if l == "en" else 0)
-    lectures["domain"] = lectures["domain"].apply(lambda l: 1 if l == "stem" else 0)
+    # lectures["language"] = lectures["language"].apply(lambda l: 1 if l == "en" else 0)
+    lectures["categories"] = lectures["categories"].apply(lambda l: 1 if l == "stem" else 0)
 
     return lectures
 
