@@ -2,10 +2,10 @@ from setuptools import setup
 
 setup(
     name='context-agnostic-engagement',
-    version='1.0',
+    version='2.0',
     packages=['context_agnostic_engagement', 'context_agnostic_engagement.helper_tools',
               'context_agnostic_engagement.feature_extraction', 'context_agnostic_engagement.models'],
-    url='www.x5gon.org',
+    url='https://www.humane-ai.eu',
     license='',
     author='Sahan Bulathwela',
     author_email='m.bulathwela@ucl.ac.uk',
