@@ -1,31 +1,41 @@
 # Video lectures dataset
 
 This repository contains the dataset and source code of the experiments conducted at reported using the VLEngagement 
-Dataset. The VLEngagement dataset provides a set of statistics aimed at studying population-based engagement 
-in video lectures, together with other conventional metrics in subjective assessment such as average star ratings and 
-number of views.  We believe the dataset will serve the community applying AI in Education to further understand what 
-are the features of educational material that makes it engaging for learners.
+Dataset. The VLEngagement dataset provides a set of statistics aimed at studying population-based  (context-agnostic) 
+engagement in video lectures, together with other conventional metrics in subjective assessment such as average star 
+ratings and number of views.  We believe the dataset will serve the community applying AI in Education to further 
+understand what are the features of educational material that makes it engaging for learners.
 
-## Use Cases and Impact
-VLEngagement dataset can be considered as a highly impactful resource contribution to the research community as it will 
-enable a whole new line of research that is geared towards next generation information and knowledge management within 
-educational repositories, Massively Open Online Course platforms and other  Video platforms. The Dataset is a pivotal 
-milestone in uplifting **sustainability** of future knowledge systems having direct impact on scalable, automatic quality 
-assurance [(1)](https://www.k4all.org/wp-content/uploads/2019/08/IJCAI_paper_on_quality.pdf), 
+## Use Cases
+The dataset is particularly suited to solve the cold-start problem found in educational recommender systems, both when 
+i) ***user cold-start***, new users join the system and we may not have enough information about their context so we may
+simply recommend population-based engaging lectures for a specific query topic and ii) ***item cold-start***, new 
+educational content is released, for which we may not have user engagement data yet and thus an engagement predictive
+model would be necessary. To the best of our knowledge, this is the first dataset to tackle such a task in 
+education/scientific recommendations at this scale. 
+
+The Dataset is a pivotal milestone in uplifting **sustainability** of future knowledge systems having direct impact on 
+scalable, automatic quality assurance [(1)](https://www.k4all.org/wp-content/uploads/2019/08/IJCAI_paper_on_quality.pdf), 
 [(2)](https://arxiv.org/pdf/2006.00592.pdf) and personalised education [(3)](https://arxiv.org/pdf/1912.01592.pdf). It 
 improves **transparency** by allowing the interpretation of humanly intuitive features and their influence in 
-population-based engagement prediction. 
+population-based engagement prediction.
 
-This dataset complements the ongoing effort of understanding learner engagement in video lectures 
-[(5)](DOI:https://doi.org/10.1145/2556325.2566239). However, it dramatically improves the research landscape by formally 
-establishing two objectively measurable novel tasks related to predicting engagement of educational 
+## Impact
+
+VLEngagement dataset can be considered as a highly impactful resource contribution to the  information retrieval, 
+multimedia analysis, educational data mining, learning analytics and AI in education research community as it will 
+enable a whole new line of research that is geared towards next generation information and knowledge management within 
+educational repositories, Massively Open Online Course platforms and other  Video/document platforms. This dataset complements the ongoing effort of understanding learner engagement in video lectures 
+[(5)](https://doi.org/10.1145/2556325.2566239). However, it dramatically improves the research landscape by formally 
+establishing ***two objectively measurable novel tasks*** related to predicting engagement of educational 
 videos while making a significantly larger, more-focused dataset and its baselines available to the research community. 
 AI in Education, Intelligent Tutoring Systems and Educational Data Mining communities are on a rapid growth trajectory 
 right now and will benefit from this dataset as it directly addresses issues related to the respective knowledge fields. 
 The simultaneously growing need for scalable, personalised learning solutions makes this dataset a central piece within 
 community that will enable improving scalable quality assurance and personalised educational recommendation in the years
  to come. The value of this dataset to the field is expected to last for a long time and will increase with subsequent 
- versions of the dataset being available in the future with more videos and more features.      
+ versions of the dataset being available in the future with more videos and more features.
+
 
 ## Using the Dataset and Its Tools
 The resource is developed in a way that any researcher with very basic technological literacy can start building on top 
@@ -81,22 +91,29 @@ This section makes the VLEngagement datasets publicly available. The VLEngagemen
  [VideoLectures.Net](http://videolectures.net/). These videos are recorded when researchers are presenting their work at 
  peer-reviewed conferences. Lectures are reviewed and hence material is controlled for correctness of knowledge and 
  pedagogical robustness. 
- 
- ### Anonymity
- We restrict the final dataset to lectures that have been viewed by at least 5 unique users to preserve anonymity of 
- users and have reliable engagement measurements. Additionally, a regime of techniques are used for preserving the
-  anonymity of the data authors using the remaining features. Rarely occurring values in *Lecture Type* feature were 
-  grouped together to create the `other` category. *Language* feature is grouped into `en` and `non-en` categories. 
-  Similarly, Domain category groups Life Sciences, Physics, Technology, Mathematics, Computer Science, Data Science 
-  and Computers subjects to `stem` category and the other subjects to `misc` category. Rounding is used with 
-  *Published Date*, rounding to the nearest 10 days. *Lecture Duration* is rounded to the nearest 10 seconds. 
-  Gaussian white noise (10%) is added to *Title Word Count* feature and rounded to the nearest integer.
+
+### Anonymity
+We restrict the final dataset to lectures that have been viewed by at least 5 unique users to preserve anonymity of 
+users and have reliable engagement measurements. Additionally, a regime of techniques are used for preserving the
+anonymity of the data authors using the remaining features. Rarely occurring values in *Lecture Type* feature were 
+grouped together to create the `other` category. *Language* feature is grouped into `en` and `non-en` categories. 
+Similarly, Domain category groups Life Sciences, Physics, Technology, Mathematics, Computer Science, Data Science 
+and Computers subjects to `stem` category and the other subjects to `misc` category. Rounding is used with 
+*Published Date*, rounding to the nearest 10 days. *Lecture Duration* is rounded to the nearest 10 seconds. 
+Gaussian white noise (10%) is added to *Title Word Count* feature and rounded to the nearest integer.
 
 ### Versions
-All the relevant datasets are available as a Comma Separated Value (CSV) file within a version subdirectory 
-(eg. `v1/VLEngagement_dataset_v1.csv`). The current latest version of the dataset is `v1`. The tools required to load,
-and manipulate the dataset are found in `context_agnostic_engagement.utils.io_utils` module.  
- 
+All the relevant datasets are available as Comma Separated Value (CSV) file within a dataset subdirectory 
+(eg. `v1/VLEngagement_dataset_v1.csv`). At present, there are two datasets that are available through this resource. 
+
+| Dataset | Number of Lectures | Number of Users   | Log Recency              | URL |
+|---------|--------------------|-------------------|--------------------------|-----|
+| v1      | 4046               | Around 150k       | Until  February 17, 2018 | [Link to Dataset](http://videolectures.net/) |
+| ***12k***     | 11568              | Over 1.1 Million  | Until February 01, 2021  |  [Link to Dataset](http://videolectures.net/) |
+
+The latest dataset of this collection is `12k`. The tools required to load,
+and manipulate the datasets are found in `context_agnostic_engagement.utils.io_utils` module.  
+
 ### Features
 There 4 main types of features extracted from the video lectures. These features can be categorised into six quality 
 verticals [(1)](https://www.k4all.org/wp-content/uploads/2019/08/IJCAI_paper_on_quality.pdf). All the features that are
@@ -283,6 +300,22 @@ using the content transcript in English lectures. Features are extracted from th
 is a non-english lecture. The transcription and translation services are provided by the 
 [TransLectures](https://www.mllp.upv.es/projects/translectures/) project.
 
+#### Textual Feature Extraction
+
+Different groups of word tokens are used when calculating features such as `Preposition rate`, `Auxilliary Rate` etc. 
+as proposed by [(6)](https://asistdl.onlinelibrary.wiley.com/doi/abs/10.1002/asi.23650). 
+
+The features are calculated using teh formulae listed below:
+
+<img src="docs/figs/features.jpg.jpg">
+
+
+
+The tokens used are listed below:
+
+<img src="docs/figs/tokens.jpg" width="1016" height="726">
+
+
 #### Wikipedia-based Features
 Two features groups that associate to *content authority* and *topic coverage* are extracted by connecting the lecture 
 transcript to Wikipedia. [Entity Linking](http://www.wikifier.org/) technology is used to identify Wikipedia concepts 
@@ -432,3 +465,7 @@ https://www.aaai.org/Papers/Workshops/2008/WS-08-15/WS08-15-005.pdf
 (5) Philip J. Guo, Juho Kim, and Rob Rubin (2014). How video production affects student engagement: an empirical study 
 of MOOC videos. In Proceedings of the first ACM conference on Learning @ scale conference (L@S ’14).
  Association for Computing Machinery, New York, NY, USA, 41–50. DOI:https://doi.org/10.1145/2556325.2566239
+
+(6) Dalip, D. H., Gonçalves, M. A., Cristo, M., & Calado, P. (2017). A general multiview framework for assessing the 
+quality of collaboratively created content on web 2.0. Journal of the Association for Information Science and 
+Technology, 68(2), 286-308. https://asistdl.onlinelibrary.wiley.com/doi/abs/10.1002/asi.23650
