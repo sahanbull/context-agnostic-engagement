@@ -1,14 +1,14 @@
 from setuptools import setup
 
 setup(
-    name='context-agnostic-engagement',
-    version='2.0',
+    name='',
+    version='1.0',
     packages=['context_agnostic_engagement', 'context_agnostic_engagement.helper_tools',
               'context_agnostic_engagement.feature_extraction', 'context_agnostic_engagement.models'],
-    url='https://www.humane-ai.eu',
+    url='',
     license='',
-    author='Sahan Bulathwela',
-    author_email='m.bulathwela@ucl.ac.uk',
+    author='',
+    author_email='',
     description='This python package includes the datasets and the helpfer functions that allow building models for predicting context-agnostic (population-based) of video lectures. ',
     install_requires=[
         'numpy>=1.14.1',
