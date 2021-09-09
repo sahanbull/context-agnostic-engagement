@@ -466,35 +466,3 @@ This module contains the python scripts that have been used to create the curren
 models have been proposed as baseline models for the tasks. The two files `models/regression/train_gbm_regression_full_cv.py` 
 and `models/regression/train_rf_regression_full_cv.py` can be used to reproduce the baseline performance for Gradient 
 Boosting Machines (GBM) and Random Forests (RM) models.
-
-## Acknowledgements
-
-This research is part of the EU's Horizon 2020 grant No 761758 ([X5GON](http://x5gon.org)) and partially funded by the 
-EPSRC Fellowship titled "Task Based Information Retrieval", under grant No EP/P024289/1.
-
-
-
-## References
-(1) Sahan Bulathwela, Emine Yilmaz, and John Shawe-Taylor (2019). Towards Automatic, Scalable Quality Assurance in Open 
-Education.", In workshop on Artificial Intelligence for United Nations SDGs at International Joint Conference in 
-Artificial Intelligence (IJCAI '19), https://www.k4all.org/wp-content/uploads/2019/08/IJCAI_paper_on_quality.pdf.
- 
-(2) Sahan Bulathwela, Maria Perez-Ortiz, Aldo Lipani, Emine Yilmaz, and John Shawe-Taylor (2020). Predicting Engagement 
-in Video Lectures. In Proc. of Int. Conf. on Educational Data Mining (EDM ’20).
-https://educationaldatamining.org/files/conferences/EDM2020/papers/paper_62.pdf
-
-(3) Sahan Bulathwela, Maria Perez-Ortiz, Emine Yilmaz, and John Shawe-Taylor (2020). 
-Towards an Integrative Educational Recommender for Lifelong Learners. In AAAI Conference on Artificial Intelligence 
-(AAAI ’20), https://arxiv.org/pdf/1912.01592.pdf
-
-(4) David Milne, Ian H. Witten (2008) An effective, low-cost measure of semantic relatedness obtained from Wikipedia 
-links. In Proceedings of the first AAAI Workshop on Wikipedia and Artificial Intelligence, Chicago, I.L, 
-https://www.aaai.org/Papers/Workshops/2008/WS-08-15/WS08-15-005.pdf
-
-(5) Philip J. Guo, Juho Kim, and Rob Rubin (2014). How video production affects student engagement: an empirical study 
-of MOOC videos. In Proceedings of the first ACM conference on Learning @ scale conference (L@S ’14).
- Association for Computing Machinery, New York, NY, USA, 41–50. DOI:https://doi.org/10.1145/2556325.2566239
-
-(6) Dalip, D. H., Gonçalves, M. A., Cristo, M., & Calado, P. (2017). A general multiview framework for assessing the 
-quality of collaboratively created content on web 2.0. Journal of the Association for Information Science and 
-Technology, 68(2), 286-308. https://asistdl.onlinelibrary.wiley.com/doi/abs/10.1002/asi.23650
