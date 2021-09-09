@@ -15,8 +15,7 @@ model would be necessary. To the best of our knowledge, this is the first datase
 education/scientific recommendations at this scale. 
 
 The Dataset is a pivotal milestone in uplifting **sustainability** of future knowledge systems having direct impact on 
-scalable, automatic quality assurance [(1)](https://www.k4all.org/wp-content/uploads/2019/08/IJCAI_paper_on_quality.pdf), 
-[(2)](https://arxiv.org/pdf/2006.00592.pdf) and personalised education [(3)](https://arxiv.org/pdf/1912.01592.pdf). It 
+scalable, automatic quality assurance and personalised education. It 
 improves **transparency** by allowing the interpretation of humanly intuitive features and their influence in 
 population-based engagement prediction.
 
@@ -25,13 +24,11 @@ population-based engagement prediction.
 VLEngagement dataset can be considered as a highly impactful resource contribution to the  information retrieval, 
 multimedia analysis, educational data mining, learning analytics and AI in education research community as it will 
 enable a whole new line of research that is geared towards next generation information and knowledge management within 
-educational repositories, Massively Open Online Course platforms and other  Video/document platforms. This dataset complements the ongoing effort of understanding learner engagement in video lectures 
-[(5)](https://doi.org/10.1145/2556325.2566239). However, it dramatically improves the research landscape by formally 
+educational repositories, Massively Open Online Course platforms and other  Video/document platforms. This dataset complements the ongoing effort of understanding learner engagement in video lectures. However, it dramatically improves the research landscape by formally 
 establishing ***two objectively measurable novel tasks*** related to predicting engagement of educational 
-videos while making a significantly larger, more-focused dataset and its baselines available to the research community. 
+videos while making a significantly larger, more-focused dataset and its baselines available to the research community with more relevance to  AI education. 
 AI in Education, Intelligent Tutoring Systems and Educational Data Mining communities are on a rapid growth trajectory 
-right now and will benefit from this dataset as it directly addresses issues related to the respective knowledge fields. 
-The simultaneously growing need for scalable, personalised learning solutions makes this dataset a central piece within 
+right now and will benefit from this dataset as it directly addresses issues related to the respective knowledge fields.  The simultaneously growing need for scalable, personalised learning solutions makes this dataset a central piece within 
 community that will enable improving scalable quality assurance and personalised educational recommendation in the years
  to come. The value of this dataset to the field is expected to last for a long time and will increase with subsequent 
  versions of the dataset being available in the future with more videos and more features.
@@ -43,13 +40,13 @@ of this dataset.
 - The dataset is provided in `Comma Seperate Values (CSV)` format making it *human-readable* while being accessible 
 through a wide range of data manipulation and statistical software suites. 
 - The resource includes 
-`helper_tools` ([Found Here](https://github.com/sahanbull/context-agnostic-engagement/tree/master/context_agnostic_engagement/helper_tools))
+`helper_tools`
  that provides a set of functions that any researcher with *basic python knowledge* can use to interact with the dataset 
  and also evaluate the built models.
-- `models.regression` ([Found Here](https://github.com/sahanbull/context-agnostic-engagement/tree/master/context_agnostic_engagement/models/regression))
+- `models.regression`
 provides *well-documented example code snippets* that can 1) enable the researcher to reproduce results reported for 
 baseline models, 2) use an example coding snippets to understand how to build novel models using the VLEngagement dataset.
-- `feature_extraction` ([Found Here](https://github.com/sahanbull/context-agnostic-engagement/tree/master/context_agnostic_engagement/feature_extraction))
+- `feature_extraction`
  module presents the programming logic of how features in the dataset are calculated. The feature extraction logic is 
  presented in the form of *well-documented (PEP-8 standard, Google Docstrings format)* Python functions that can be used
  to 1) understand the logic behind feature extraction or 2) apply the feature extraction logic to your own lecture records
@@ -78,7 +75,7 @@ In addition, there are two files:
         - [Explicit Rating](#explicit-rating)
         - [Popularity](#popularity)
         - [Watch Time/Engagement](#watch-timeengagement)
-- [VLEngagement 12k Dataset](#vlengagement-12k-dataset)    
+- [VLEngagement Dataset](#vlengagement-12k-dataset)    
     - [Lecture Duration Distribution](#lecture-duration-distribution)
     - [Lecture Categories](#lecture-categories)
 - [`content_agnostic_engagement` Module](#content_agnostic_engagement-module)
@@ -93,18 +90,19 @@ This section makes the VLEngagement datasets publicly available. The VLEngagemen
  aggregated video lectures consumption data coming from a popular OER repository, 
  [VideoLectures.Net](http://videolectures.net/). These videos are recorded when researchers are presenting their work at 
  peer-reviewed conferences. Lectures are reviewed and hence material is controlled for correctness of knowledge and 
- pedagogical robustness. 
+ pedagogical robustness. Specififally, the dataset is comparatively 
+more useful when building e-learning systems for Artificial Intellgence and Computer Science Education as majority of lectures in the dataset belong to these
+topics. 
 
 ### Versions
 All the relevant datasets are available as Comma Separated Value (CSV) file within a dataset subdirectory 
-(eg. `v1/VLEngagement_dataset_v1.csv`). At present, there are two datasets that are available through this resource. 
+(eg. `v1/VLEngagement_dataset_v1.csv`). At present, a dataset consisting around 12,000 lectures is available publicly.
 
 | Dataset | Number of Lectures | Number of Users   |  Number of Star Ratings             | Log Recency | URL |
 |---------|--------------------|-------------------|--------------------------|----|-----|
-| 4k     | 4046               | Around 150k       | 1250 | Until  February 17, 2018 | [Link to Dataset](https://github.com/sahanbull/context-agnostic-engagement/tree/master/VLEngagement_datasets/4k) |
-| ***12k***     | 11568              | Over 1.1 Million  | 2127  | Until February 01, 2021 |  [Link to Dataset](https://github.com/sahanbull/context-agnostic-engagement/tree/master/VLEngagement_datasets/12k) |
+| ***v1***     | 11568              | Over 1.1 Million  | 2127  | Until February 01, 2021 |  /VLEngagement_datasets/12k |
 
-The latest dataset of this collection is `12k`. The tools required to load,
+The latest dataset of this collection is `v1`. The tools required to load,
 and manipulate the datasets are found in `context_agnostic_engagement.utils.io_utils` module.
 
 ### Anonymity
@@ -119,8 +117,8 @@ Gaussian white noise (10%) is added to *Title Word Count* feature and rounded to
 
 
 ### Features
-There 4 main types of features extracted from the video lectures. These features can be categorised into six quality 
-verticals [(1)](https://www.k4all.org/wp-content/uploads/2019/08/IJCAI_paper_on_quality.pdf). 
+There 4 main types of features extracted from the video lectures. These features can be categorised into [six quality 
+verticals](https://www.k4all.org/wp-content/uploads/2019/08/IJCAI_paper_on_quality.pdf). 
 
 All the features that are included in the dataset are summarised in Table 1.
 
@@ -309,16 +307,15 @@ is a non-english lecture. The transcription and translation services are provide
 #### Textual Feature Extraction
 
 Different groups of word tokens are used when calculating features such as `Preposition rate`, `Auxilliary Rate` etc. 
-as proposed by [(6)](https://asistdl.onlinelibrary.wiley.com/doi/abs/10.1002/asi.23650). 
+as proposed by [Dalip et al.](https://asistdl.onlinelibrary.wiley.com/doi/abs/10.1002/asi.23650). 
 
-The features are calculated using teh formulae listed below:
+The features are calculated using the formulae listed below:
 
 <img align="center" src="docs/figs/features.jpg" width="324" height="777">
 
-The tokens used are listed below:
+The tokens used during feature extraction are listed below:
 
 <img align="center" src="docs/figs/tokens.jpg" width="1016" height="726">
-
 
 #### Wikipedia-based Features
 Two features groups that associate to *content authority* and *topic coverage* are extracted by connecting the lecture 
@@ -440,7 +437,8 @@ categories on the top level of which the distribution is presented below.
 <img align="center" src="docs/figs/categories.jpg">
 
 Although majority of the lectures
-belong to Computer Science category as pointed in the paper, there are other categories that are diverse in this dataset.
+belong to Computer Science category, there are other categories that are diverse in this dataset. The predictive performance of non-CS lectures 
+has also been empirically tested.
 
 ## `content_agnostic_engagement` Module
 This section contains the code that enables the research community to work with the VLEngagement dataset. The folder
@@ -462,7 +460,6 @@ Correlation Coefficient (SROCC) and Pairwise Ranking Accuracy (Pairwise).
 - `io_utils`: contains the helper functions that are required for loading and manipulating the dataset. 
 
 ### `models` 
-This module contains the python scripts that have been used to create the current baselines. Currently, `regression` 
-models have been proposed as baseline models for the tasks. The two files `models/regression/train_gbm_regression_full_cv.py` 
-and `models/regression/train_rf_regression_full_cv.py` can be used to reproduce the baseline performance for Gradient 
-Boosting Machines (GBM) and Random Forests (RM) models.
+This module contains the python scripts that have been used to create the current baseline. Currently, `regression` 
+models have been proposed as baseline models for the tasks. The  `models/regression/train_rf_regression_full_cv.py` can be used to
+reproduce the baseline performance for Random Forests (RF) models.
