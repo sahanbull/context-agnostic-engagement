@@ -1,8 +1,3 @@
-# Important Notice
-
-### This dataset is going through a further ethical review at the moment and will not be available publicly until the ethical examination is complete. At this point, it is safe NOT TO TREAT THIS DATASET AS ETHICALLY APPROVED. We apologise for your inconvinience. 
-
-
 # Video lectures dataset
 
 This repository contains the dataset and source code of the experiments conducted at reported using the VLEngagement 
